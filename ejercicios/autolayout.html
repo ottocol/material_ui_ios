@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Ejercicios de autolayout</title>
+	</head>
+<body>
+
+<h2>Ejercicios de autolayout</h2>
+
+<h2>Aplicación “Pioneras”</h2>
+
+<p>Añade <em>autolayout</em> a la aplicación que hicistes ayer en la sesión 1 (“Pioneras”). El ojetivo fundamental es intentar que se vea bien en modo <em>portrait</em> (vertical) independientemente del tipo concreto de iPhone (4, 5, 6…). Ten en cuenta que del iPhone 4 al 5 hay un cambio en la altura de la pantalla y del 5 a 6 un cambio en altura y anchura.</p>
+
+<h2>layout tipo “Acordeón”</h2>
+
+<p>En las plantillas de la sesión hay unas cuantas imágenes de fichas de <em>scrabble</em>.El objetivo es hacer que aparezcan centradas en vertical, una al lado de la otra. Entre cada imagen debe haber una distancia fija y todas las imágenes deben tener el mismo ancho. Si el ancho de la pantalla cambia, debería cambiar automáticamente el ancho de las imágenes para que la separación siga siendo la misma.</p>
+
+<figure><img src="layout_acordeon.png"/></figure>
+
+<ul>
+	<li>Crea un proyecto llamado <code>Autolayout</code></li>
+	<li>Añade las imágenes al <code>images.xcassets</code> como es habitual.</li>
+	<li>Usa la interfaz visual de Xcode para poner las restricciones que consideres necesarias</li>
+	<li>comprueba que funciona independientemente del modelo de iPhone y de la orientación (sea <em>portrait</em> o <em>landscape</em>).</li>
+</ul>
+
+<h2><em>layout</em> por código</h2>
+
+<p>En otra pantalla del <em>storyboard</em> inserta la imagen de la <code>A</code> del <em>scrabble</em> e intenta usando objective-c (sin el editor visual) que aparezca centrada en vertical y que el ancho se adapte automáticamente, dejando una distancia fija a los lados. Es decir, como el “acordeón” del ejercicio anterior, pero solo con un objeto, para simplificar.</p>
+
+<ul>
+	<li>Pon la pantalla como controller inicial para que empiece a ejecutarse desde aquí, o crea un segue para llegar hasta ella</li>
+	<li>crea un nuevo controller para meter el código (una <code>Cocoa Touch class</code> que herede de <code>UIViewController</code></li>
+	<li>asocia el controller a esta pantalla, con el <em>identity inspector</em></li>
+</ul>
+
+<p>Toma como punto de partida el siguiente código, al que debes añadir el tuyo</p>
+
+<pre><code>//En el viewDidLoad del controller
+UIImageView * imgView = [[UIImageView alloc] initWithImage:   
+               [UIImage imageNamed:@&quot;a&quot;]];
+[self.view addSubview:imgView];
+//no usar el método antiguo de layout (autoresizing masks)
+//porque usar este junto con autolayout lleva al desastre
+[imgView setTranslatesAutoresizingMaskIntoConstraints:NO];
+</code></pre>
+
+</body>
+</html>
