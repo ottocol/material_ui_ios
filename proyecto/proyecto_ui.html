@@ -1,0 +1,192 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>proyecto_ui</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+html,body{color:black}#wrapper{font:16px helvetica,arial,freesans,clean,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;padding:3px;background:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;border:solid 1px #dddddd !important;color:#333}p{margin:1em 0}a{color:#4183c4;text-decoration:none}#wrapper{background-color:#fff;padding:30px;margin:15px;font-size:16px;line-height:1.6}#wrapper>*:first-child{margin-top:0 !important}#wrapper>*:last-child{margin-bottom:0 !important}@media screen{#wrapper{border:solid 1px #ddd}}h1,h2,h3,h4,h5,h6{position:relative;margin-top:1em;margin-bottom:16px;font-weight:700;line-height:1.4;color:#333}h1{padding-bottom:.3em;font-size:2.25em;line-height:1.2;border-bottom:1px solid #eee}h2{padding-bottom:0.3em;font-size:1.75em;line-height:1.225;border-bottom:1px solid #eee}h3{font-size:1.5em;line-height:1.43}h4{font-size:1.25em}h5{font-size:1em}h6{color:#777;font-size:1em}p,blockquote,ul,ol,dl,table,pre{margin-top:0;margin-bottom:16px}hr{height:4px;padding:0;margin:16px 0;background-color:#e7e7e7;border:0 none}ul,ol{padding-left:2em}ul.no-list,ol.no-list{padding:0;list-style-type:none}ul ul,ul ol{margin-top:0;margin-bottom:0}ol ol,ol ul{margin-top:0;margin-bottom:0}li>p{margin-top:16px}dl{padding:0}dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}dl dd{padding:0 16px;margin-bottom:16px}blockquote{padding:0 15px;margin-left:0;color:#777;border-left:4px solid #ddd}blockquote>:first-child{margin-top:0}blockquote>:last-child{margin-bottom:0}table{display:block;width:100%;overflow:auto}table th{font-weight:700;padding:6px 13px;border:1px solid #ddd}table td{padding:6px 13px;border:1px solid #ddd}table tr{background-color:#fff;border-top:1px solid #ccc}table tr:nth-child(2n){background-color:#f8f8f8}img{max-width:100%;-moz-box-sizing:border-box;box-sizing:border-box}span.frame{display:block;overflow:hidden}span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}span.frame span img{display:block;float:left}span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}span.align-center{display:block;overflow:hidden;clear:both}span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}span.float-left span{margin:13px 0 0}span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}code,tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,0.04);border-radius:3px}code:before,code:after{letter-spacing:-.2em;content:"\00a0"}tt:before,tt:after{letter-spacing:-.2em;content:"\00a0"}code br,tt br{display:none}del code{text-decoration:inherit;vertical-align:text-top}pre>code{padding:0;margin:0;font-size:100%;white-space:pre;background:transparent;border:0}.highlight{margin-bottom:16px}.highlight pre{padding:16px;margin-bottom:0;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}pre{padding:16px;margin-bottom:0;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px;word-wrap:normal}pre code,pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}pre code:before,pre code:after{content:normal}pre tt:before,pre tt:after{content:normal}.poetry pre{font-family:Georgia, Garamond, serif !important;font-style:italic;font-size:110% !important;line-height:1.6em;display:block;margin-left:1em}.poetry pre code{font-family:Georgia, Garamond, serif !important;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;white-space:pre-wrap}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;vertical-align:super;position:relative}sub{vertical-align:sub;top:-1px}@media print{body{background:#fff}img,table,figure{page-break-inside:avoid}#wrapper{background:#fff;border:none !important;font-size:12px}pre code{overflow:visible}}@media screen{body.inverted{color:#eee !important;border-color:#555;box-shadow:none}.inverted #wrapper,.inverted hr,.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted th,.inverted .math,.inverted caption,.inverted dd,.inverted dt,.inverted blockquote{color:#eee !important;border-color:#555;box-shadow:none}.inverted td,.inverted th{background:#333}.inverted pre,.inverted code,.inverted tt{background:#eeeeee !important;color:#111}.inverted h2{border-color:#555555}.inverted hr{border-color:#777;border-width:1px !important}::selection{background:rgba(157,193,200,0.5)}h1::selection{background-color:rgba(45,156,208,0.3)}h2::selection{background-color:rgba(90,182,224,0.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,0.3)}code::selection{background-color:rgba(0,0,0,0.7);color:#eeeeee}code span::selection{background-color:rgba(0,0,0,0.7) !important;color:#eeeeee !important}a::selection{background-color:rgba(255,230,102,0.2)}.inverted a::selection{background-color:rgba(255,230,102,0.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,0.5)}.inverted{background:#0b2531;background:#252a2a}.inverted #wrapper{background:#252a2a}.inverted a{color:#acd1d5}}.highlight{background:#fff}.highlight .c{color:#998;font-style:italic}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .k,.highlight .o{font-weight:700}.highlight .cm{color:#998;font-style:italic}.highlight .cp{color:#999;font-weight:700}.highlight .c1{color:#998;font-style:italic}.highlight .cs{color:#999;font-weight:700;font-style:italic}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .ge{font-style:italic}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:700}.highlight .gu{color:purple;font-weight:700}.highlight .gt{color:#a00}.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr{font-weight:700}.highlight .kt{color:#458;font-weight:700}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .n{color:#333}.highlight .na{color:teal}.highlight .nb{color:#0086b3}.highlight .nc{color:#458;font-weight:700}.highlight .no{color:teal}.highlight .ni{color:purple}.highlight .ne,.highlight .nf{color:#900;font-weight:700}.highlight .nn{color:#555}.highlight .nt{color:navy}.highlight .nv{color:teal}.highlight .ow{font-weight:700}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .sb,.highlight .sc,.highlight .sd,.highlight .s2,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:teal}.highlight .il{color:#099}.highlight .gc{color:#999;background-color:#EAF2F5}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:blue}.type-csharp .highlight .nf{color:#000;font-weight:400}.type-csharp .highlight .nc{color:#2b91af}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#a31515}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:normal}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}body.dark #wrapper{background:transparent !important;box-shadow:none !important}
+#generated-toc-clone li.missing,#mkreplaced-toc li.missing{list-style-type:none!important}#generated-toc-clone li, #mkreplaced-toc li{list-style-type:upper-roman}#generated-toc-clone li li, #mkreplaced-toc li li{list-style-type:decimal}#generated-toc-clone li li li,#mkreplaced-toc li li li{list-style-type:decimal-leading-zero}#generated-toc-clone li li li li,#mkreplaced-toc li li li li{list-style-type:lower-greek}#generated-toc-clone li li li li li,#mkreplaced-toc li li li li li{list-style-type:disc}#generated-toc-clone li li li li li li,#mkreplaced-toc li li li li li li{list-style-type:square}
+</style>
+<style>#wrapper { max-width:900px; margin:0 auto }</style>
+</head>
+<body class="normal firstload">
+  <div id="wrapper">
+      <h1 id="proyectodelaasignaturadeinterfacesdeusuariopartedeiosbásico">Proyecto de la asignatura de interfaces de usuario, parte de iOS básico</h1>
+
+<p>Este &#8220;miniproyecto&#8221; trata de hacer una pequeña aplicación basándose en <a href="developer.marvel.com">el API</a> de la editorial Marvel, que nos permite consultar información sobre los personajes, los <em>comics</em>, las <em>series</em>,&#8230;</p>
+
+<h2 id="pasosiniciales">Pasos iniciales</h2>
+
+<h3 id="registroenlaapidemarvel">Registro en la API de Marvel</h3>
+
+<p>Lo primero que necesitas es <a href="https://secure.marvel.com/user/register?referer=https%3A%2F%2Fdeveloper.marvel.com%2Faccount">registrarte</a> en Marvel (si no tienes cuenta ya) para poder obtener un par de claves. Este paso es necesario porque la API tiene un número máximo de llamadas diario, lo que significa que no podemos compartir todos las mismas claves.</p>
+
+<h3 id="lalibreríaiosparaaccederalaapi">La librería iOS para acceder a la API</h3>
+
+<p>La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente sería demasiado engorroso, por lo que usaremos una librería en Obj-C de terceros llamada <a href="https://github.com/rock-n-code/Marvelous">Marvelous</a> para hacer las peticiones más simples.</p>
+
+<h4 id="instalacióndelalibrería">Instalación de la librería</h4>
+
+<p>La forma más sencilla de instalar la librería es usar un conjunto de herramientas denominado <a href="http://cocoapods.org"><em>CocoaPods</em></a>. Se trata de un sistema para especificar y resolver automáticamente dependencias de librerías de terceros. Hay muchas librerías disponibles con este sistema.</p>
+
+<p>Para instalar <code>cocoapods</code>, desde la terminal hacer</p>
+<pre><code class="bash">sudo gem install cocoapods</code></pre>
+
+<p>Esto instalará un comando llamado <code>pod</code>. Ahora seguir estos pasos:</p>
+
+<ol>
+<li>Crear un proyecto Xcode para la aplicación. Llamarlo por ejemplo <code>Marvel</code></li>
+<li>En la terminal moverse al directorio del proyecto (el que contiene el fichero <code>.xcodeproj</code>)</li>
+<li>Ejecutar el comando <code>pod init</code>. Esto creará un fichero llamado <code>Podfile</code></li>
+<li>Poner las dependencias en el <code>Podfile</code>. En nuestro caso hay que añadir al final una línea</li>
+</ol>
+<pre><code class="bash">pod &apos;Marvelous&apos;</code></pre>
+
+<p>. Ejecutar el comando <code>pod install</code>. Las dependencias de nuestro proyecto se bajarán automáticamente.<br/>
+6. Ahora para trabajar siempre <strong>abriremos el fichero Marvel.xcworkspace</strong>, que representa un <em>workspace</em> de Xcode (un conjunto de proyectos), no el proyecto Marvel directamente (NO el <code>Marvel.xcodeproj</code>).<br/>
+7. Veremos que en Xcode se muestra nuestro proyecto y además una especie de proyecto adicional llamado <em>pods</em> que contiene las dependencias.</p>
+
+<h3 id="ejemplodeusodelalibrería">Ejemplo de uso de la librería</h3>
+
+<p>Para probar de manera sencilla la librería puedes poner este <code>import</code> en el<br/>
+ <code>ViewController.m</code></p>
+<pre><code class="objectivec">#import &lt;Marvelous/Marvelous.h&gt;</code></pre>
+
+<p>Y ahora colocar el siguiente código en el <code>viewDidLoad</code> y comprobar que se muestran todos los personajes cuyo nombre comienza por &#8220;spider&#8221;.</p>
+<pre><code class="objectivec">RCMarvelAPI *marvelAPI = [RCMarvelAPI api];
+marvelAPI.publicKey = @&quot;tu-clave-publica-del-api&quot;;
+marvelAPI.privateKey = @&quot;tu-clave-privada-del-api&quot;;
+RCCharacterFilter *filtro = [[RCCharacterFilter alloc] init];
+filtro.nameStartsWith = @&quot;spider&quot;;
+[marvelAPI charactersByFilter:filtro
+             andCallbackBlock:^(NSArray *resultados, RCQueryInfoObject *info, NSError *error) {
+                 for (RCCharacterObject *personaje in resultados) {
+                     NSLog(@&quot;%@&quot;, personaje.name);
+                 }
+             }
+ ];</code></pre>
+
+<h2 id="estructurageneraldelaaplicación">Estructura general de la aplicación</h2>
+
+<p>El <em>storyboard</em> de la aplicación a crear será como el de la siguiente figura</p>
+
+<figure>
+<img src="storyboard.png" alt="" />
+</figure>
+
+<p>Puedes comenzar arrastrando al <em>storyboard</em> vacío un <code>tab bar view controller</code>, que creará el controlador en sí con dos pantallas de contenido. </p>
+
+<h2 id="vistamaestrodetallesinedición">Vista maestro/detalle (sin edición)</h2>
+
+<p>En esta parte de la aplicación se debe mostrar (solo ver, no editar) un determinado recurso de los que ofrece el API. Elige tú lo que prefieras: personajes, comics, creadores&#8230; </p>
+
+<h3 id="vistamaestro">Vista maestro</h3>
+
+<p>Esta es una pantalla con una vista de tabla en la que se muestra un listado del recurso elegido (por ejemplo un listado de personajes)</p>
+
+<p><strong>Pasos para crear la pantalla de listado:</strong></p>
+
+<ul>
+<li>Tenemos que convertir la primera pantalla de contenido que nos ha creado el <code>tab bar view controller</code> en un <code>navigation controller</code> y una pantalla de listado. Para ello selecciona la primera pantalla de contenido (lo más sencillo es pulsar en el icono del <code>controller</code> de la parte superior) y en el menú <code>Editor</code> selecciona <code>Embed in &gt; Navigation Controller</code></li>
+<li>Crea una clase propia para el controller: <code>ListaViewController</code> que herede de <code>UITableViewController</code> y haz que la pantalla de listado la use (con el <code>identity inspector</code>).</li>
+<li>Arrastra en la pantalla un campo de texto y un botón para poder buscar (alternativa: puedes emplear una <code>UISearchBar</code>, pero tendrás que consultar la documentación para ver cómo se usa).</li>
+<li>Arrastra en la pantalla una vista de tabla</li>
+<li>Crea un <em>outlet</em> desde la vista de tabla al <code>.h</code> del <em>controller</em>. Llámalo por ejempo <code>vistaTabla</code></li>
+<li>Conecta la propiedad <code>datasource</code> de la vista de tabla con la clase <code>ListaViewController</code> (usando el <code>connections inspector</code> arrastra desde la propiedad <code>datasource</code> hasta el icono del controlador).</li>
+<li>Implementar el controlador de la pantalla (<code>ListaViewController</code>)
+
+<ul>
+<li>En el <code>.h</code> define una propiedad <code>NSMutableArray *datos</code>. inicialízalo a un array vacío con <code>alloc</code> e <code>init</code>.</li>
+<li>En el <code>.h</code> especifica que esta clase implementa el protocolo <code>UITableViewDataSource</code></li>
+<li>Recuerda que este protocolo indica que al menos debes implementar
+
+<ul>
+<li><code>-(NSInteger) tableView:(UITableView*) tabla numberOfRowsInSection:(NSInteger)section</code></li>
+<li><code>-(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><strong>Hacer búsquedas y cargar los datos</strong></p>
+
+<p>Haz que cuando se teclee algo en el campo de texto y se pulse el botón <code>buscar</code> se le pidan los datos al API y se muestren en la tabla. Tendrás que:</p>
+
+<ul>
+<li>tener un <em>outlet</em> asociado al campo de texto para saber qué se ha tecleado</li>
+<li>tener un <em>action</em> asociado al botón para saber que se ha pulsado</li>
+<li>pedirle los datos al API</li>
+<li>mostrar los datos llamando al método <code>reloadData</code> de la vista de tabla. Como es código que actualiza el interfaz de usuario debes asegurarte que se ejecuta en el <em>thread</em> principal para que funcione correctamente:</li>
+</ul>
+<pre><code class="objectivec">//sustituye self.vistaTabla por el outlet que hayas definido
+//para acceder a la tabla desde el controlador
+[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self.vistaTabla reloadData];
+                }];</code></pre>
+
+<blockquote>
+<p>En lugar de un campo de texto y un botón para buscar <strong>sería mejor usar un <a href="https://developer.apple.com/library/ios/documentation/userexperience/conceptual/UIKitUICatalog/UISearchBar.html#//apple_ref/doc/uid/TP40012857-UISearchBar-SW14"><code>UISearchBar</code></a></strong>, pero tu controller (o quien sea) tendría que implementar el protocolo <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intf/UISearchBarDelegate"><code>UISearchBarDelegate</code></a>. Y todavía mejor emplear un <em>search display controller</em>, que es una barra de búsqueda vinculada automáticamente con una tabla de resultados. Este último <em>controller</em> lo verás en la parte avanzada de la asignatura. Si tienes curiosidad puedes consultar por ejemplo <a href="http://www.appcoda.com/search-bar-tutorial-ios7/">este tutorial</a></p>
+</blockquote>
+
+<h3 id="vistadetalle">Vista detalle</h3>
+
+<p>En esta pantalla deben aparecer los detalles del recurso en el que has hecho <em>tap</em>.</p>
+
+<blockquote>
+<p>Si quieres usar una tabla estática para diseñar esta pantalla debes usar como <em>controller</em> una clase que herede de <code>UITableViewController</code></p>
+</blockquote>
+
+<p><strong>Infraestructura y conexión con la pantalla anterior</strong></p>
+
+<ul>
+<li>Arrastra un &#8220;view controller&#8221; al <em>storyboard</em></li>
+<li>En la pantalla anterior, selecciona la vista de tabla y en el <em>attribute inspector</em> haz que tenga 1 <em>prototype cells</em>, Asegúrate de que el &#8220;reuse identifier&#8221; del prototipo se corresponde con el que estás usando en el código de <code>cellForRowAtIndexPath</code> de la tabla con el listado.</li>
+<li>Haz <code>ctrl+arrastrar</code> entre la celda prototipo y la pantalla actual. Elige el tipo <em>push</em> para el <em>segue</em> (dentro de &#8220;selection segue&#8221;).</li>
+<li>Implementa una clase <code>DetalleViewController</code> que herede de <code>UIViewController</code> y asóciala a esta pantalla.</li>
+</ul>
+
+<p><strong>Implementación de la funcionalidad</strong></p>
+
+<ul>
+<li>Define en el <code>.h</code> del <em>controller</em> una <code>@property</code> del tipo de recurso que estés mostrando (<code>RCCharacterObject</code>, <code>RCComicsObject</code>, <code>RCCreatorObject</code>,&#8230;)</li>
+<li>En el <code>prepareForSegue</code> instancia esta <code>@property</code> para que contenga el objeto a mostrar.</li>
+<li>Diseña una pantalla en la que se muestren los datos del objeto (no es necesario que sean todos, solo los que quieras, para probar que funciona). Tendrás que crear un <em>outlet</em> por cada campo, y rellenar los campos en el <code>viewDidLoad</code> del <em>controller</em>. Consulta el .h de la clase elegida, o la documentación del API para saber qué propiedades tiene cada objeto.</li>
+<li>Entre otras cosas, en esta pantalla deberías mostrar la imagen del personaje, comic, creador o lo que sea que hayas elegido, a un tamaño relativamente pequeño. La carga de la imagen deberías hacerla en un hilo secundario, para no paralizar la interfaz de usuario si la imagen tarda en cargarse:</li>
+</ul>
+<pre><code class="objc">NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+[queue addOperationWithBlock:^{
+    //sustituye self.personaje por el objeto que quieres mostrar
+    RCImageObject *thumb = self.personaje.thumbnail;
+    NSString *url = [NSString stringWithFormat:@&quot;%@/portrait_uncanny.%@&quot;, 
+                     thumb.basePath,  thumb.extension];
+    NSData * data = [[NSData alloc] 
+                     initWithContentsOfURL: [NSURL URLWithString: url]];
+    if (data) {
+        UIImage *img = [[UIImage alloc] initWithData:data];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            //sustituye self.miImagen por el outlet para acceder a la imagen
+            self.miImagen.image = img;
+        }];
+    }
+}];
+</code></pre>
+
+<p>Puedes consultar <a href="http://developer.marvel.com/documentation/images">esta página</a> para ver el formato de las URL de las imágenes. Básicamente se construyen con una trayectoria base seguidas de un &#8220;modificador&#8221; de aspecto y tamaño (<code>portrait_small</code>, <code>landscape_medium</code>, &#8230;) y la extensión del archivo.</p>
+
+<h2 id="controladormodal">Controlador modal</h2>
+
+<p>Implementa una nueva pantalla en la que se pueda ver solo la imagen a mayor tamaño. Haz que la transición se realice con un <em>segue</em> modal pulsando sobre algún botón &#8220;ver imagen ampliada&#8221;. </p>
+
+<p>Para volver atrás en este tipo de <em>segue</em> necesitas hacer un <em>unwind</em>, pero <a href="http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8">parece haber un <em>bug</em> en iOS 8.0</a> que hace que no funcione en situaciones como la que se pide. Una alternativa es usar un <em>action</em> de un botón &#8220;volver atrás&#8221; para ejecutar</p>
+<pre><code class="objectivec">[self dismissViewControllerAnimated:YES completion:nil];</code></pre>
+
+<p>debería dejar de mostrar el controlador modal actual.</p>
+
+<blockquote>
+<p>Aclaración: en una aplicación real posiblemente usaríamos un <em>segue</em> de tipo &#8220;push&#8221;, pero dado que se trata de un ejercicio el objetivo es probar todos los tipos de <em>segues</em> que conocemos.</p>
+</blockquote>
+<!-- ##END MARKED WRAPPER## -->
+    </div>
+</body>
+</html>
