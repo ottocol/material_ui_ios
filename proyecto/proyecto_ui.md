@@ -32,6 +32,7 @@ Esto instalará un comando llamado `pod`. Ahora seguir estos pasos:
 ```bash
 pod 'Marvelous'
 ```
+
 5. Ejecutar el comando `pod install`. Las dependencias de nuestro proyecto se bajarán automáticamente.
 6. Ahora para trabajar siempre **abriremos el fichero Marvel.xcworkspace**, que representa un *workspace* de Xcode (un conjunto de proyectos), no el proyecto Marvel directamente (NO el `Marvel.xcodeproj`).
 7. Veremos que en Xcode se muestra nuestro proyecto y además una especie de proyecto adicional llamado *pods* que contiene las dependencias.
