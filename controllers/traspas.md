@@ -3,7 +3,11 @@
 
 ---
 
-Recordemos que los *controllers* son **el “pegamento” que relaciona la vista con el modelo**. Contienen el código que reacciona a los eventos del usuario (por ejemplo qué hacer cuando se pulsa un botón) o modifica la vista.
+Recordemos que los *controllers* son **el “pegamento” que relaciona la vista con el modelo**. Contienen el código que:
+
+- Reacciona a los eventos del usuario 
+- Modifica la vista.
+- Le pide al modelo que "haga cosas"
 
 
 ---
@@ -47,6 +51,8 @@ Recordemos que los *controllers* son **el “pegamento” que relaciona la vista
 - (void)loadView
 - (void)viewDidLoad
 - (void)viewDidUnload
+- (void)viewDidAppear
+- (void)viewWillAppear
 - (void)didReceiveMemoryWarning
 ```
 
@@ -66,7 +72,7 @@ Recordemos que los *controllers* son **el “pegamento” que relaciona la vista
 ---
 
 
-##Posibilidades para crear el interfaz de usuario:
+##Posibilidades para crear la interfaz de usuario
 
 -  **Storyboards**, (por defecto). representan las “pantallas” de nuestra aplicación y el flujo de navegación entre ellas. 
 - **NIBs**: representan una “pantalla” concreta de nuestra aplicación,  asociada a un *view controller*. Pasar de una pantalla a otra (de un *view controller* a otro) es responsabilidad del desarrollador. 

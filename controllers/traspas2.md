@@ -58,4 +58,12 @@ self.window.rootViewController = evc;
 - Se pueden crear *outlets* y actions arrastrando entre el icono del File’s Owner y el elemento de interfaz (primero se escribe manualmente el código y luego se hace la conexión).
 
 
+---
+
+## Storyboards vs. NIBs
+
+- El principal problema del *storyboard* es que no es factible que dos desarrolladores distintos lo modifiquen simultáneamente. Por ello muchos equipos de desarrollo optaban por los NIBs
+
+- Desde iOS9 los *storyboards* [se pueden modularizar](https://www.shinobicontrols.com/blog/ios9-day-by-day-day3-storyboard-references), lo que hace el trabajo en equipo mucho más sencillo
+
 
