@@ -66,6 +66,15 @@ CGRect marco = [vista frame]
 
 ---
 
+## Sistema de coordenadas
+
+<!-- .element class="stretch" -->
+![](img/flipped_coordinates-2_2x.png)
+
+- [resoluciones de dispositivos iOS](http://iosres.com)
+
+---
+
 ##Color, transparencia, estado...
 
 ```objectivec
@@ -167,8 +176,6 @@ UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte"
 
 ---
 
-
----
 
 ##Teclado en pantalla
 
