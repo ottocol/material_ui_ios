@@ -2,7 +2,7 @@
 
 ##Volver atrás en un *segue* (II)
 
-2. `Ctrl+Arrastrar` desde el elemento de interfaz que queremos que desencadene el *unwind*, hasta el icono de `Exit` 
+**Paso 2**. `Ctrl+Arrastrar` desde el elemento de interfaz que queremos que desencadene el *unwind*, hasta el icono de `Exit` 
 
 ![](img/unwind_segue.png)
 

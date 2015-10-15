@@ -9,6 +9,12 @@ Recordemos que los *controllers* son **el “pegamento” que relaciona la vista
 - Modifica la vista.
 - Le pide al modelo que "haga cosas"
 
+---
+
+**Aclaración**
+
+Apple usa el confuso término "View Controller" para referirse al controlador de una vista. **El *view controller* es la C**, no la V del MVC
+
 
 ---
 
@@ -36,16 +42,27 @@ Recordemos que los *controllers* son **el “pegamento” que relaciona la vista
 
 ![](img/content_vs_container.png) 
 
----
-
-##2. Ciclo de vida de un *controller*
 
 
 ---
 
+##2. Estructura básica del código de un *controller*
 
 
-##Ciclo de vida de un *controller*
+---
+
+## Show me the code!
+
+Un *controller* no es más que una clase que hereda de `UIViewController`. Podemos escribirla nosotros o ser propia de Cocoa
+
+```objectivec
+//Archivo ViewController.h
+@interface ViewController : UIViewController
+```
+
+---
+
+## Métodos del ciclo de vida de un *controller*
 
 ```objectivec
 - (void)loadView
@@ -58,7 +75,23 @@ Recordemos que los *controllers* son **el “pegamento” que relaciona la vista
 
 ---
 
-##`loadView`: creación del interfaz por código
+## `viewDidLoad`
+
+- Se llama una única vez tras cargar el controlador en memoria
+- Se suele aprovechar para inicializar propiedades, rellenar la vista con contenido si son datos dinámicos, etc.
+
+---
+
+##`viewDidAppear`
+
+- Se llama cada vez que se muestra la vista asociada al controlador
+- Típicamente usada para iniciar animaciones
+
+---
+
+##`loadView`
+
+- Solo se usa si queremos crear los componentes de la interfaz por código
 
 ```objectivec
 - (void)loadView {
@@ -121,19 +154,35 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 
 ---
 
-##Pasar datos entre controladores
+##Pasar de un controlador a otro
 
--  Al seguir un *segue*, el cambio de controlador es automático
-- Cuando se va a cambiar de un controlador a otro se llama a `prepareForSegue:sender`. 
-
+- Al seguir un *segue*, el cambio de controlador es automático
+- Cuando se va a cambiar de un controlador a otro iOS llama a `prepareForSegue:sender`. 
 
 ```objectivec
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    //Sabemos que el controller destino es de la clase "ViewController2"
+    NSLog(@"Vamos a cambiar de controller!!!")
+}
+```
+
+---
+
+
+
+##Pasar datos entre controllers
+
+1. Definimos una propiedad en el controller destino
+2. En el `prepareForSegue:sender` modificamos el valor de la propiedad desde el *controller* origen
+3. Cuando llegamos al destino, en la propiedad tenemos la información deseada
+
+
+```objc
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //Supongamos que el controller destino es de la clase "ViewController2"
     ViewController2 *destino = [segue destinationViewController];
-    //Suponemos que la clase "ViewController2"
+    //Supongamos que la clase "ViewController2"
     //tiene una @property NSString *texto
-    destino.texto = @"Hola, soy el controller origen";
+    destino.texto = @"Hola, bienvenidos a esta pantalla";
 }
 ```
 
@@ -141,7 +190,7 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 
 ##Volver atrás en un *segue*
 
-1. Implementar en el *controller* al que se vuelve un método que devuelva un `IBAction` y tenga como único parámetro un `UIStoryboardSegue *`
+**Paso 1**. Implementar en el *controller* al que se vuelve un método que devuelva un `IBAction` y tenga como único parámetro un `UIStoryboardSegue *`. No es necesario que el método haga nada en especial. Simplemente sabemos que se ejecutará cuando se vuelva atrás.
 
 ```objectivec
 - (IBAction)miUnwind:(UIStoryboardSegue *)sender {
