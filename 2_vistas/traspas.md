@@ -38,7 +38,7 @@ self.window = window;
 ```objectivec
 UIView* vista = miViewController.view;
 UIButton *boton = [[UIButton alloc] init];
-[boton setTitle:@"Holaaa" forState:UIControlStateNormal];
+[boton setTitle:@"Hola" forState:UIControlStateNormal];
 [boton setFrame:CGRectMake(0,0,100,50)];
 [vista addSubview:boton];
 vista.backgroundColor = [UIColor redColor];
@@ -82,53 +82,100 @@ boton.enabled = NO; //Lo deshabilitamos
 
 ##3. Controles de usuario básicos
 
+
 ---
 
-##UIAlertView
+La clase `UIControl` es de la que heredan los controles más “interactivos” como los botones, mientras que las etiquetas lo hacen de `UIView` (no obstante todos los`UIControl` son también vistas ya que a su vez esta clase hereda de `UIView`).
+
+Referencia: [UIKit User Interface Catalog](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/UIKitUICatalog/), de Apple
+
+---
+
+## Mensajes al usuario
+
+- **Alertas**: ofrecen información al usuario o la posibilidad de elegir opciones
+- **Action sheets**: ante una acción a realizar, dan a los usuarios la posibilidad de seguir cursos alternativos 
+
+Las alertas suelen ser inesperadas para el usuario. Sin embargo las *action sheet* aparecen en respuesta a una acción y por tanto son esperables
+
+![](img/alert_action.png)
+
+---
+
+## Alert
+
+![](img/susto_o_muerte.png)
+
+
+---
+
+
+##UIAlertController
+
+Sirve tanto para alertas como para *action sheets*
 
 ```objectivec
-UIAlertView *alert = [[UIAlertView alloc]
-       initWithTitle:@"Saludo"
-       message:@"Hola usuario"
-       delegate:????
-       cancelButtonTitle:@"OK"
-       otherButtonTitles: nil];
- [alert show]
+UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Hola amigo" 
+                             message:@"Elige, por favor" 
+                             preferredStyle:UIAlertControllerStyleAlert];
+UIAlertAction *susto = [UIAlertAction actionWithTitle:@"Susto" 
+                          style:UIAlertActionStyleDefault 
+                          handler:^(UIAlertAction * _Nonnull action) {
+                             NSLog(@"Uhhhh!, haber elegido muerte...");
+                        }];
+UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte" 
+                          style:UIAlertActionStyleDefault 
+                          handler:^(UIAlertAction * _Nonnull action) {
+                             NSLog(@"Haber elegido susto...");
+                        }];
+[alert addAction:susto];
+[alert addAction:muerte];
+[self presentViewController:alert animated:YES completion:^{
+    NSLog(@"¡Has elegido bien!");
+}];
 ```
 
 ---
 
-##Saber qué ha pulsado el usuario
+## Action sheet
 
-- Poner como `delegate` el objeto que vaya a responder (típicamente el controller)
-- Especificar que este objeto sigue el protocolo `UIAlertViewDelegate`
+<!-- .element class="stretch" -->
+![](img/susto_o_muerte_action.png)
+
+---
 
 ```objectivec
-@interface ViewController : UIViewController <UIAlertViewDelegate>
-...
+UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Hola amigo"
+                                    message:@"Elige, por favor"
+                                    preferredStyle:UIAlertControllerStyleActionSheet];
+UIAlertAction *susto = [UIAlertAction actionWithTitle:@"Susto"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * _Nonnull action) {
+                                    NSLog(@"Uhhhh!, haber elegido muerte...");
+}];
+UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte"
+                                style:UIAlertActionStyleDestructive
+                                handler:^(UIAlertAction * _Nonnull action) {
+                                    NSLog(@"Haber elegido susto...");
+}];
+[alert addAction:susto];
+[alert addAction:muerte];
+[self presentViewController:alert animated:YES completion:^{
+    NSLog(@"¡Has elegido bien!");
+}];
 ```
 
 ---
 
-##Saber qué ha pulsado el usuario (cont.)
-
-- Implementar el método correspondiente del protocolo
-
-```objectivec
--(void) alertView:(UIAlertView *)alertView 
-           didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"Se ha pulsado el boton:%d", buttonIndex);
-}
-```
 
 ---
 
 ##Teclado en pantalla
 
-- un problema típico es cómo quitarlo de enmedio. Para quitarlo al pulsar sobre "intro"
-    + Crear un *action* con `Ctrl+Arrastrar` entre el campo y el `.m` del controller. En el menú desplegable elegir el evento `Did end on exit`
-    + En el *action* hacer
+Un problema típico es cómo "quitarlo de enmedio". Para quitarlo al pulsar sobre "intro"
 
+* Crear un *action* con `Ctrl+Arrastrar` entre el campo y el `.m` del controller. En el menú desplegable elegir el evento `Did end on exit`
+* En el *action* hacer
 
 ```objectivec
 - (IBAction)pulsadoIntro:(id)sender {
