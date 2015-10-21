@@ -2,13 +2,13 @@
 ##iOS, sesión 4: Tablas
 
 
+
 ---
 
-##Puntos a tratar
+Las tablas están por todos lados en iOS. Su aspecto es bastante configurable
 
-- Tablas estáticas
-- Mostrar tablas dinámicas: el *datasource*
-- Editar tablas dinámicas: el *delegate*
+<!-- .element class="stretch" -->
+![](img/apps_tablas.png)
 
 ---
 
@@ -34,6 +34,19 @@
 
 ---
 
+##Puntos a tratar
+
+1. Tablas estáticas 
+2. Tablas dinámicas
+2. Mostrar tablas dinámicas: el *datasource*
+3. Editar tablas dinámicas: el *delegate*
+
+---
+
+# 1. Tablas estáticas
+
+---
+
 ##Tablas estáticas
 
 - El número y tamaño de filas y secciones es conocido con anterioridad. Que sean estáticas no quiere decir que el contenido no pueda cambiar
@@ -41,10 +54,14 @@
 
 ---
 
+# 2. Tablas dinámicas
+
+---
+
 ##Tablas dinámicas
 
 - Normalmente no conocemos el número de datos en tiempo de compilación
-- Para mostrar listas de datos
+- Se pueden añadir/eliminar filas y/o secciones
 
 
 ---
@@ -55,12 +72,16 @@
 + El **datasource**, al que el *controller* le va pidiendo datos dinámicamente
 + El **delegate** (opcional). gestiona algunos eventos de edición y algunos aspectos de la apariencia de las celdas
 
-- Podría estar el mismo objeto en los tres papeles, de hecho no es raro que pase esto.
+- Es muy común que un mismo objeto esté en los tres papeles (el *view controller* de la pantalla con la tabla)
 
 ---
 
 La conexión de la vista de tabla con el *datasource* y el *delegate* se puede hacer gráficamente
 
+
+---
+
+# 3. Mostrar datos en tablas dinámicas: el *datasource*
 
 ---
 

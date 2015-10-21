@@ -1,3 +1,6 @@
+# 4. Editar datos en tablas dinámicas: el *delegate*
+
+---
 
 ##El *delegate*
 
@@ -60,7 +63,6 @@ UITableView *miTableView;
 }
 ```
 
----
 
 
 ---
