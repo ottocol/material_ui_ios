@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Ejercicios de tablas</title>
+	</head>
+<body>
+<h1>Ejercicios de tablas</h1>
+
+<h2>Tabla estática (0,5 puntos)</h2>
+
+<p>Crea una pantalla que sea una tabla estática, al estilo de la aplicación de <em>settings</em> de iOS, con las siguientes condiciones:</p>
+
+<ul>
+	<li>Debe tener al menos tres secciones, con el número de filas que quieras en cada una.</li>
+	<li>Algunas celdas deben tener iconos. Puedes por ejemplo usar <a href="https://www.iconfinder.com/iconsets/ios-7-icons">estos</a>, o cualquier otro que encuentres por la web</li>
+	<li>Prueba diferentes tipos de <em>accesory</em> en las celdas (accesibles en las propiedades de la celda)</li>
+	<li>Una de las celdas tendrá como título “Ver lista” y nos llevará a la segunda pantalla (ahora veremos cómo)</li>
+</ul>
+
+<h2>Tabla dinámica (2 puntos)</h2>
+
+<h3>Crear la interfaz y la navegación entre pantallas</h3>
+
+<p>Crea otra pantalla, al estilo de la que aparece en la figura. Tiene que tener los siguientes componentes:</p>
+
+<ul>
+	<li>Un <em>text field</em></li>
+	<li>Un par de <em>button</em>s</li>
+	<li>Un <em>table view</em></li>
+</ul>
+
+<figure><img src="interfaz_ejer2_tablas.png"/></figure>
+
+<blockquote>
+<p>Aunque habría que usar <em>autolayout</em>, para simplificar el ejercicio puedes ignorar este aspecto.</p>
+</blockquote>
+
+<p>Conecta la pantalla inicial con esta mediante un <em>segue</em>, asociado a la celda con título “ver lista”. Para crearlo simplemente haz <code>Ctrl</code>+ arrastrar desde la celda hasta la pantalla destino. </p>
+
+<p>Recuerda que para poder volver atrás necesitarás implementar un método en la pantalla inicial con la siguiente signatura (aunque puedes cambiar el nombre)</p>
+
+<pre><code>- (IBAction)volverAtras:(UIStoryboardSegue*)segue {
+}
+</code></pre>
+
+<p>Ahora asocia el botón “atrás” con este método haciendo <code>Ctrl</code> + arrastrar del botón al icono “exit” que aparece en la parte superior del “view controller”, y eligiendo el método <code>volverAtras</code> (o como lo hayas llamado) en el menú <em>popup</em>.</p>
+
+<p>Comprueba que la navegación funciona y que puedes moverte entre las dos pantallas</p>
+
+<h3>Mostrar datos en la tabla</h3>
+
+<ul>
+	<li>Primero crea una nueva clase que hará de <em>view controller</em> de la segunda pantalla: menú <code>File &gt; New &gt; File</code>, selecciona la plantilla de <code>Cocoa Touch Class</code> y llama a la nueva clase <code>ListaViewController</code>, asegurándote de que es subclase de <code>UIViewController</code>.</li>
+	<li>Haz que la clase creada sea efectivamente el <em>controller</em> de la segunda pantalla seleccionando esta, yendo al <code>identity inspector</code> (icono <img src="Captura%20de%20pantalla%202015-10-21%20a%20las%2014.35.59.png"/>) y poniendo <code>ListaViewController</code> como valor de la propiedad <code>Class</code>.</li>
+	<li>Convierte al <code>ListaViewController</code> en el <em>datasource</em> de la tabla seleccionándola, yendo al <code>connections inspector</code> (icono <img src="Captura%20de%20pantalla%202015-10-21%20a%20las%2014.37.44.png"/>) y arrastrando desde el <code>Outlet</code> <code>datasource</code> hasta el icono amarillo del <em>view controller</em> de la parte superior de la segunda pantalla. <img src="conectar_datasource.png"/></li>
+	<li>Haz que el <code>ListaViewController</code> implemente el protocolo <code>UITableViewDataSource</code> poniéndolo en el <code>ListaViewController.h</code>, cuya cabecera quedará:</li>
+</ul>
+
+<pre><code>@interface ListaViewController : UIViewController &lt;UITableViewDataSource&gt;
+</code></pre>
+
+<ul>
+	<li>En la parte de <code>@interface</code> del <code>ListaViewController.m</code> crea una propiedad de tipo <code>NSMutableArray</code> donde guardar los datos de la tabla: </li>
+</ul>
+
+<pre><code>@property NSMutableArray&lt;NSString*&gt; *nombres;
+</code></pre>
+
+<ul>
+	<li>En el <code>viewDidLoad</code> del <code>ListaViewController.m</code> inicializa el array con datos de prueba</li>
+</ul>
+
+<pre><code>	self.nombres = [NSMutableArray arrayWithObjects:@&quot;Daenerys Targaryen&quot;, @&quot;Jon Nieve&quot;, @&quot;Cersei Lannister&quot;, @&quot;Eddard Stark&quot;, nil];
+</code></pre>
+
+<ul>
+	<li><p>Ahora tendrás que implementar tú de manera adecuada los métodos:</p>
+
+		<ul>
+			<li><code>tableView:numberOfRowsInSection:</code> recuerda que debe devolver el número de filas de la tabla</li>
+			<li><code>tableView:cellForRowAtIndexPath:</code>: recuerda que debe devolver la celda para una fila determinada</li>
+		</ul></li>
+</ul>
+
+<h3>Insertar filas</h3>
+
+<p>Vamos a hacer que se pueda editar la tabla. Para ello necesitas algún objeto que actúe de <em>delegate</em>. Vamos a cargarle la responsabilidad al <code>ListaViewController</code>:</p>
+
+<ul>
+	<li>En el <code>connections inspector</code> conecta gráficamente el <em>Outlet</em> <code>delegate</code> al <code>ListaViewController</code></li>
+	<li>Haz que el <code>ListaViewController</code> implemente también el protocolo <code>UITableViewDelegate </code>. Recuerda que debes modificar el <code>.h</code>:</li>
+</ul>
+
+<pre><code>@interface ListaViewController : UIViewController &lt;UITableViewDataSource, UITableViewDelegate&gt;
+</code></pre>
+
+<p>En la pantalla de lista, haz que cuando se escriba un texto en el campo de texto y se pulse el botón <code>Insertar</code> se añada el texto como nueva celda de la tabla. En el método al que llames cuando pulses el botón tendrás que:</p>
+
+<ul>
+	<li>Insertar el dato en el array <code>nombres</code>. Puedes usar el método <code>addObject:</code> para añadir al final del array</li>
+	<li>Insertar la fila en la tabla con <code>insertRowsAtIndexPaths:withRowAnimation:</code>. Puedes hacer algo como:</li>
+</ul>
+
+<pre><code>//IMPORTANTE: en lugar de numeroDeFila pon la fila en la que quieras insertar
+//obtiene un indexPath a partir de un número de fila y sección
+NSIndexPath *indexPath = [NSIndexPath indexPathForRow:numeroDeFila inSection:0];
+//Inserta las nuevas filas (en este caso una sola)
+[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+</code></pre>
+
+<h3>Eliminar filas</h3>
+
+<p>Añádele a la pantalla con la lista de nombres un botón “Editar tabla”. Haz que cuando se pulse el botón la tabla se ponga en “modo edición” llamando a <code>setEditing:animated:</code> sobre la tabla.</p>
+
+<p>Para que se borre no solo visualmente la fila sino también el nombre del array tendrás que implementar el método <code>tableView:commitEditingStyle:forRowAtIndexPath:</code>.</p>
+
+</body>
+</html>
+
