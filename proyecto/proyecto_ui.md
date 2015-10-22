@@ -6,15 +6,17 @@ Este "miniproyecto" trata de hacer una pequeña aplicación basándose en [el AP
 
 ###Registro en la API de Marvel
 
-Lo primero que necesitas es [registrarte](https://secure.marvel.com/user/register?referer=https%3A%2F%2Fdeveloper.marvel.com%2Faccount) en Marvel (si no tienes cuenta ya) para poder obtener un par de claves. Este paso es necesario porque la API tiene un número máximo de llamadas diario, lo que significa que no podemos compartir todos las mismas claves.
+Lo primero que necesitas es [registrarte](https://secure.marvel.com/user/register?referer=https%3A%2F%2Fdeveloper.marvel.com%2Faccount) en Marvel para poder obtener un par de claves. Este paso es necesario porque la API tiene un número máximo de llamadas diario, lo que significa que no podemos compartir todos las mismas claves.
 
-###La librería iOS para acceder a la API
+###Acceso a la API con la librería "Marvelous"
 
-La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente sería demasiado engorroso, por lo que usaremos una librería en Obj-C de terceros llamada [Marvelous](https://github.com/rock-n-code/Marvelous) para hacer las peticiones más simples.
+La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente con los APIs de iOS sería un poco engorroso, por lo que usaremos una librería en Obj-C de terceros llamada [Marvelous](https://github.com/rock-n-code/Marvelous) para hacer las peticiones más simples y sobre todo recibir los datos ya *parseados*.
 
 ####Instalación de la librería
 
-La forma más sencilla de instalar la librería es usar un conjunto de herramientas denominado [*CocoaPods*](http://cocoapods.org). Se trata de un sistema para especificar y resolver automáticamente dependencias de librerías de terceros. Hay muchas librerías disponibles con este sistema.
+Por desgracia Xcode no integra ningún sistema de gestión de dependencias de librerías de terceros, así que acudiremos a una herramienta que no es de Apple pero que se ha convertido en un estándar *de facto* en el mundo iOS: [*CocoaPods*](http://cocoapods.org).
+
+Cocoapods es a la vez un repositorio de librerías y un gestor de dependencias para instalar automáticamente estas librerías en nuestros proyectos. Hay muchas librerías de terceros disponibles con este sistema, puedes buscarlas desde la página de CocoaPods.
 
 Para instalar `cocoapods`, desde la terminal hacer
 
@@ -22,34 +24,39 @@ Para instalar `cocoapods`, desde la terminal hacer
 sudo gem install cocoapods
 ```
 
-Esto instalará un comando llamado `pod`. Ahora seguir estos pasos:
+> Esto instala la herramienta desde un repositorio de Internet, así que  necesitarás conectividad...y paciencia, según vaya la red.
 
-1. Crear un proyecto Xcode para la aplicación. Llamarlo por ejemplo `Marvel`
-2. En la terminal moverse al directorio del proyecto (el que contiene el fichero `.xcodeproj`)
-3. Ejecutar el comando `pod init`. Esto creará un fichero llamado `Podfile`
-4. Poner las dependencias en el `Podfile`. En nuestro caso hay que añadir al final una línea
+Si todo va bien se instalará un comando llamado `pod`. Ejecútalo desde la terminal para comprobar al menos que existe. Ahora debes seguir estos pasos:
+
+1. Crear un proyecto Xcode para la aplicación. Llámalo por ejemplo `Marvel`
+2. Con un editor de textos cualquiera, crear un fichero llamado `Podfile` en el directorio del proyecto (el que contiene el fichero `.xcodeproj`). Este archivo debe contener la configuración y las dependencias (o *pods*) del proyecto
 
 ```bash
+platform :ios, '9.0'
 pod 'Marvelous'
 ```
 
-5. Ejecutar el comando `pod install`. Las dependencias de nuestro proyecto se bajarán automáticamente.
-6. Ahora para trabajar siempre **abriremos el fichero Marvel.xcworkspace**, que representa un *workspace* de Xcode (un conjunto de proyectos), no el proyecto Marvel directamente (NO el `Marvel.xcodeproj`).
-7. Veremos que en Xcode se muestra nuestro proyecto y además una especie de proyecto adicional llamado *pods* que contiene las dependencias.
+5. Abre una terminal. Muévete hasta el directorio donde está el `Podfile` y desde él ejecuta el comando `pod install`. Las dependencias de nuestro proyecto se bajarán automáticamente y se creará en el directorio actual un `Marvel.xcworkspace`
+6. A partir de ahora para trabajar en el proyecto siempre **abriremos el fichero Marvel.xcworkspace**, que es un *workspace* de Xcode (un conjunto de proyectos), no el proyecto Marvel directamente (**NO el `Marvel.xcodeproj`**).
+7. Veremos que en Xcode se muestra nuestro proyecto y además una especie de proyecto adicional llamado `Pods`, que contiene las dependencias.
 
-###Ejemplo de uso de la librería
+###Ejemplo de uso de `Marvelous`
 
-Para probar de manera sencilla la librería puedes poner este `import` en el
- `ViewController.m`
+
+> Para poder hacer llamadas al API de Marvel necesitas un par de claves. Las puedes ver, una vez dado de alta y autentificado en Marvel, en `https://developer.marvel.com/account`
+
+
+Para probar de manera sencilla la librería `Marvelous` puedes poner este `import` en el `AppDelegate.m`
 
 ```objectivec
 #import <Marvelous/Marvelous.h>
 ```
 
-Y ahora colocar el siguiente código en el `viewDidLoad` y comprobar que se muestran todos los personajes cuyo nombre comienza por "spider".
+Y ahora colocar el siguiente código en el `application:didFinishLaunchingWithOptions` y comprobar que se muestran todos los personajes cuyo nombre comienza por "spider".
 
 ```objectivec
 RCMarvelAPI *marvelAPI = [RCMarvelAPI api];
+//CAMBIA ESTO PARA PONER TUS CLAVES!!!!!!
 marvelAPI.publicKey = @"tu-clave-publica-del-api";
 marvelAPI.privateKey = @"tu-clave-privada-del-api";
 RCCharacterFilter *filtro = [[RCCharacterFilter alloc] init];
@@ -63,16 +70,13 @@ filtro.nameStartsWith = @"spider";
  ];
 ```
 
-
-
 ##Estructura general de la aplicación
 
-
-El *storyboard* de la aplicación a crear será como el de la siguiente figura
+El *storyboard* de la aplicación a crear debería ser como el de la siguiente figura
 
 ![](storyboard.png)
 
-Puedes comenzar arrastrando al *storyboard* vacío un `tab bar view controller`, que creará el controlador en sí con dos pantallas de contenido. 
+Puedes comenzar arrastrando al *storyboard* vacío un `tab bar view controller`, que creará el controlador en sí con dos pantallas de contenido. Para hacer que el `tab bar` sea la pantalla inicial selecciónalo y en el `attribute inspector` marca la casilla `Is initial View Controller`.
 
 ##Vista maestro/detalle (sin edición)
 
