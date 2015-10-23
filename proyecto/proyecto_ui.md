@@ -72,7 +72,7 @@ filtro.nameStartsWith = @"spider";
 
 ##Estructura general de la aplicación
 
-El *storyboard* de la aplicación a crear debería ser como el de la siguiente figura
+Para que te hagas una idea de la estructura, se muestra el *storyboard* de la aplicación ya terminada
 
 ![](storyboard.png)
 
@@ -166,6 +166,10 @@ Cada vez que se haga una búsqueda tendrás que decirle a iOS que vuelva a redib
 
 Una vez terminado todo esto, esta pantalla debería ser casi totalmente funcional. Solo quedaría ver los detalles de cada *item* al hacer *tap* sobre él.
 
+
+Opcionalmente **(0,25 puntos extra)**, puedes hacer que aparezca un *spinner* mientras se está procesando la petición, para que el usuario sepa que el sistema está esperando datos. Los *spinners* en iOS se denominan *Activity Indicators*. Puedes consultar la referencia de la [clase `UIActivityIndicator`](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIActivityIndicatorView_Class/index.html) para ver la forma de uso, aunque es muy sencillo, básicamente debes hacer `startAnimating` para que empiece a girar y `stopAnimating` para pararlo. 
+
+> Es posible que el *activity indicator* se te quede detrás de los otros elementos de interfaz y no se vea. Puedes usar el método `bringSubviewToFront` que se llama desde la vista "madre" para pasar a una vista "hija" a "primer plano". Si estamos en el *controller* sería algo como `[self.view bringSubviewToFront:self.miActivityIndicator]`, ya que recuerda que `self.view`en un *controller* es la vista principal. Tendrás que sustituir la referencia `self.miActivityIndicator` por la apropiada en tu caso. Además de esto lleva cuidado también con el color, otro problema típico es usar uno del mismo color que el fondo.
 
 ## Vista de detalle (1 punto)
 
