@@ -214,8 +214,9 @@ NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     RCImageObject *thumb = self.personaje.thumbnail;
     NSString *url = [NSString stringWithFormat:@"%@/portrait_uncanny.%@", 
                      thumb.basePath,  thumb.extension];
-    NSData * data = [[NSData alloc] 
-                     initWithContentsOfURL: [NSURL URLWithString: url]];
+    //Cambiamos el http: por https:, no se pueden hacer peticiones a URLs no seguras                 
+    NSString *url_https = [url stringByReplacingOccurrencesOfString:@"http:" withString:@"https:"];
+    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: url_https]];
     if (data) {
         UIImage *img = [[UIImage alloc] initWithData:data];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -228,6 +229,8 @@ NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 ```
 
 Puedes consultar [esta página](http://developer.marvel.com/documentation/images) para ver el formato de las URL de las imágenes. Básicamente se construyen con una trayectoria base seguidas de un "modificador" de aspecto y tamaño (`portrait_small`, `landscape_medium`, ...) y la extensión del archivo.
+
+> En el código anterior se obtiene la URL de la imagen y luego se cambia el `http:` por `https:`. Como ya hemos visto en otras sesiones, en principio en iOS9 una *app* no puede hacer una petición a una URL web si no es con `https:`. Esto debería cambiarse en la propia librería `Marvelous`, pero podemos salir del paso con este pequeño *parche*.
 
 ##Imagen a tamaño completo (1 punto)
 

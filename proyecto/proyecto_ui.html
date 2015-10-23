@@ -657,8 +657,9 @@ filtro.nameStartsWith = @&quot;spider&quot;;
     RCImageObject *thumb = self.personaje.thumbnail;
     NSString *url = [NSString stringWithFormat:@&quot;%@/portrait_uncanny.%@&quot;, 
                      thumb.basePath,  thumb.extension];
-    NSData * data = [[NSData alloc] 
-                     initWithContentsOfURL: [NSURL URLWithString: url]];
+    //Cambiamos el http: por https:, no se pueden hacer peticiones a URLs no seguras                 
+    NSString *url_https = [url stringByReplacingOccurrencesOfString:@&quot;http:&quot; withString:@&quot;https:&quot;];
+    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: url_https]];
     if (data) {
         UIImage *img = [[UIImage alloc] initWithData:data];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -670,6 +671,10 @@ filtro.nameStartsWith = @&quot;spider&quot;;
 </code></pre>
 
 <p>Puedes consultar <a href="http://developer.marvel.com/documentation/images">esta página</a> para ver el formato de las URL de las imágenes. Básicamente se construyen con una trayectoria base seguidas de un &quot;modificador&quot; de aspecto y tamaño (<code>portrait_small</code>, <code>landscape_medium</code>, ...) y la extensión del archivo.</p>
+
+<blockquote>
+<p>En el código anterior se obtiene la URL de la imagen y luego se cambia el <code>http:</code> por <code>https:</code>. Como ya hemos visto en otras sesiones, en principio en iOS9 una <em>app</em> no puede hacer una petición a una URL web si no es con <code>https:</code>. Esto debería cambiarse en la propia librería <code>Marvelous</code>, pero podemos salir del paso con este pequeño <em>parche</em>.</p>
+</blockquote>
 
 <h2 id="toc_17">Imagen a tamaño completo (1 punto)</h2>
 
