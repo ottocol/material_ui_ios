@@ -2,7 +2,7 @@
 
 Este "miniproyecto" trata de hacer una pequeña aplicación basándose en [el API](developer.marvel.com) de la editorial Marvel, que nos permite consultar información sobre los personajes, los *comics*, las *series*,...
 
-##Pasos iniciales
+##Pasos iniciales (0,75 puntos)
 
 ###Registro en la API de Marvel
 
@@ -76,74 +76,137 @@ El *storyboard* de la aplicación a crear debería ser como el de la siguiente f
 
 ![](storyboard.png)
 
-Puedes comenzar arrastrando al *storyboard* vacío un `tab bar view controller`, que creará el controlador en sí con dos pantallas de contenido. Para hacer que el `tab bar` sea la pantalla inicial selecciónalo y en el `attribute inspector` marca la casilla `Is initial View Controller`.
+La aplicación debe permiti buscar, listar y mostrar los detalles de alguno de los recursos que ofrece el API. Elige tú lo que prefieras: personajes, comics, creadores... 
 
-##Vista maestro/detalle (sin edición)
+## Pantalla inicial
 
-En esta parte de la aplicación se debe mostrar (solo ver, no editar) un determinado recurso de los que ofrece el API. Elige tú lo que prefieras: personajes, comics, creadores... 
+Puedes comenzar creando un *tab bar* a partir de la pantalla inicial: selecciónala y en el menú `Editor` elige `Embed In > Tab Bar Controller`.
 
-###Vista maestro
+##Vista maestro (2 puntos)
 
-Esta es una pantalla con una vista de tabla en la que se muestra un listado del recurso elegido (por ejemplo un listado de personajes)
+Esta debe ser una pantalla con una barra de búsqueda y una vista de tabla en la que se puede buscar y listar el recurso elegido (por ejemplo personajes). El resultado final será algo como:
 
-**Pasos para crear la pantalla de listado:**
+![](img/maestro.png)
 
-- Tenemos que convertir la primera pantalla de contenido que nos ha creado el `tab bar view controller` en un `navigation controller` y una pantalla de listado. Para ello selecciona la primera pantalla de contenido (lo más sencillo es pulsar en el icono del `controller` de la parte superior) y en el menú `Editor` selecciona `Embed in > Navigation Controller`
-- Crea una clase propia para el controller: `ListaViewController` que herede de `UITableViewController` y haz que la pantalla de listado la use (con el `identity inspector`).
-- Arrastra en la pantalla un campo de texto y un botón para poder buscar (alternativa: puedes emplear una `UISearchBar`, pero tendrás que consultar la documentación para ver cómo se usa).
-- Arrastra en la pantalla una vista de tabla 
-- Crea un *outlet* desde la vista de tabla al `.h` del *controller*. Llámalo por ejempo `vistaTabla`
-- Conecta la propiedad `datasource` de la vista de tabla con la clase `ListaViewController` (usando el `connections inspector` arrastra desde la propiedad `datasource` hasta el icono del controlador).
-- Implementar el controlador de la pantalla (`ListaViewController`)
-    + En el `.h` define una propiedad `NSMutableArray *datos`. inicialízalo a un array vacío con `alloc` e `init`.
-    + En el `.h` especifica que esta clase implementa el protocolo `UITableViewDataSource`
-    + Recuerda que este protocolo indica que al menos debes implementar 
-        + `-(NSInteger) tableView:(UITableView*) tabla numberOfRowsInSection:(NSInteger)section`
-        + `-(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath`
 
-**Hacer búsquedas y cargar los datos**
+Ve a la primera (y por el momento única) pantalla de contenido del *tab bar*, selecciona la barra inferior y en las propiedades `bar item` ponle un título apropiado (por ejemplo "Personajes") y un icono relevante.
 
-Haz que cuando se teclee algo en el campo de texto y se pulse el botón `buscar` se le pidan los datos al API y se muestren en la tabla. Tendrás que:
 
-- tener un *outlet* asociado al campo de texto para saber qué se ha tecleado
-- tener un *action* asociado al botón para saber que se ha pulsado
-- pedirle los datos al API
-- mostrar los datos llamando al método `reloadData` de la vista de tabla. Como es código que actualiza el interfaz de usuario debes asegurarte que se ejecuta en el *thread* principal para que funcione correctamente:
+> Recuerda que tienes unas cuantas webs de donde puedes coger iconos "planos", por ejemplo [https://www.iconfinder.com/iconsets/ios-7-icons](https://www.iconfinder.com/iconsets/ios-7-icons) o [http://www.flaticon.com/packs/line-icon-set](http://www.flaticon.com/packs/line-icon-set)
+
+
+
+###Crear los componentes de la interfaz
+
+La tabla:
+
+- Arrastra una *table view* a la pantalla
+- Selecciona la tabla y en las propiedades crea un prototipo de celda poniendo el `Prototype cells` a 1.
+- Selecciona el prototipo de celda recién creado y en las propiedades elige com `style` el valor `Basic`, para usar uno de los tipos predefinidos de celda y no tener que hacerlo tú.
+
+La barra de búsqueda:
+
+- Arrastra un componente de tipo *search bar* a la pantalla y déjalo justo arriba de la tabla.
+
+Nos falta fijar el *autolayout*:
+
+- Selecciona barra y tabla manteniendo pulsada la tecla `Cmd` e inserta ambas en un *stack view* utilizando el primero de los botones de *autolayout* (parte inferior derecha del *storyboard)
+- Haz que este *stack view* ocupe toda la pantalla. Lo más sencillo es ponerle 4 restricciones de distancia 0 a los bordes.
+
+Una vez hecho esto puedes poner en marcha la *app* para ver si la interfaz tiene buen aspecto. La tabla aparecerá vacía, por supuesto.
+
+###Gestionar la barra de búsqueda
+
+El objeto que actúe como *delegate* de la barra de búsqueda debe implementar el protocolo `UISearchBarDelegate`. Puede ser cualquiera, aunque siguiendo la filosofía MVC (Monster View Controller) haremos que sea el *view controller* de la pantalla actual :).
+
+Vamos a crear este *view controller*: 
+
+- Crea una nueva clase de Cocoa Touch llamada `ListaViewController` y haz que sea una subclase de `UIViewController`
+- Asígnale ese *controller* a la pantalla de lista que has creado antes. Recuerda que esto se hace a través del `identity inspector`.
+
+Ahora vamos a conectar el *view controller* con la barra de búsqueda:
+
+
+- Selecciona la *search bar* (te será más fácil si lo haces en el árbol de componentes) y en el `connections inspector` conecta el *outlet* `delegate` con el *controller* de esta pantalla.
+- Pon en el `ListaViewController.h` que esta clase implementa el protocolo `UISearchBarDelegate`
+- En el `ListaViewController.m` implementa el método `searchBarSearchButtonClicked:`, que se llamará cuando se escriba algo en la barra y se pulse el botón de "buscar". Para probar inicialmente basta que imprimas en la consola el texto escrito en la barra y quites el teclado *on screen*.
+
+```objectivec
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"%@", searchBar.text);
+    //Esconde el teclado "en pantalla"
+    [searchBar resignFirstResponder];
+}
+```
+
+Ejecuta la *app* y comprueba que efectivamente funciona.
+
+Ahora **tendrás que poner código propio** para que cuando se pulse en el botón de buscar se haga la llamada a la API de Marvel. Por el momento lo más simple es mostrar los resultados con `NSLog`. Puedes asignárselos también a un `NSArray` que sea una `@property` del *controller*, para que luego sean sencillos de mostrar en la tabla.
+
+
+###Mostrar los resultados en la tabla
+
+Una vez conseguido esto, tendrás que hacer que los resultados aparezcan en la tabla. Recuerda que necesitas un *datasource* para ella, y que para simplificar puedes hacer que sea el `ListaViewController`. A grandes rasgos esto implica:
+
+- Que, como decíamos antes, el *controller* debe tener acceso a los datos, por ejemplo guardándolos en una `@property`.
+- Que tienes que conectar en el `connections inspector` el *outlet* `datasource` con el *controller*.
+- Que el `ListaViewController` debe implementar el protocolo `UITableViewDataSource`. Hay que poner en el `.h` que esto es así, y además implementar los correspondientes métodos en el `.m`, para devolver el número de filas en la tabla y devolver una celda dado su `indexPath`.
+
+Cada vez que se haga una búsqueda tendrás que decirle a iOS que vuelva a redibujar la tabla llamando a su método `reloadData`. Cuidado, porque al ser una actualización de la interfaz debes asegurarte de que esto lo estás haciendo desde el *thread* principal, algo como:
 
 ```objectivec
 //sustituye self.vistaTabla por el outlet que hayas definido
 //para acceder a la tabla desde el controlador
 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self.vistaTabla reloadData];
-                }];
+        [self.vistaTabla reloadData];
+}];
 ```
 
-> En lugar de un campo de texto y un botón para buscar **sería mejor usar un [`UISearchBar`](https://developer.apple.com/library/ios/documentation/userexperience/conceptual/UIKitUICatalog/UISearchBar.html#//apple_ref/doc/uid/TP40012857-UISearchBar-SW14)**, pero tu controller (o quien sea) tendría que implementar el protocolo [`UISearchBarDelegate`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UISearchBarDelegate_Protocol/index.html#//apple_ref/occ/intf/UISearchBarDelegate). Y todavía mejor emplear un *search display controller*, que es una barra de búsqueda vinculada automáticamente con una tabla de resultados. Este último *controller* lo verás en la parte avanzada de la asignatura. Si tienes curiosidad puedes consultar por ejemplo [este tutorial](http://www.appcoda.com/search-bar-tutorial-ios7/)
+> Obtener el `mainQueue` explícitamente es necesario si, como es lo más lógico, colocas el código anterior en el bloque que obtiene la respuesta del API de Marvel. Recuerda que para evitar bloqueos, Marvelous funciona de modo asíncrono y devuelve los resultados ejecutando un bloque que tú le pasas.
 
-###Vista detalle
+Una vez terminado todo esto, esta pantalla debería ser casi totalmente funcional. Solo quedaría ver los detalles de cada *item* al hacer *tap* sobre él.
 
-En esta pantalla deben aparecer los detalles del recurso en el que has hecho *tap*.
+
+## Vista de detalle (1 punto)
+
+La nueva pantalla mostrará los datos de un *item* al hacer *tap*. Como una vez en los detalles queremos poder volver atrás al listado de forma sencilla, lo mejor es usar un *navigation controller*:
+
+
+### El *navigation controller*
+
+En este apartado todavía no estamos implementando la vista de detalle, solo creando la jerarquía de navegación.
+
+- Selecciona la pantalla de lista y elige la opción de menú `Editor > Embed In > Navigation Controller`. Aparecerá un nuevo *navigation controller* que tiene como primer nivel de navegación a la pantalla de lista de items.
+- Fijate que en la parte superior de la pantalla de items habrá aparecido un espacio reservado para el título y los botones de navegación. Esto puede haber "trastocado" en modo diseño el resto de los elementos de la interfaz (aunque cuando se ejecute la *app* deberían seguir funcionando bien). Recuerda que puedes volverlos "a su sitio" en modo diseño con el `Update Frames` del *autolayout*.
+- Selecciona la nueva barra de título de la vista de lista y en las propiedades pon como `title` el recurso que estás mostrando (personajes, autores, comics,...).
+
+### La pantalla de detalles del *item*
+
+Esta sería la que muestra todos los datos de un personaje, comic, creador,... junto a su imagen si es que la tiene.
 
 > Si quieres usar una tabla estática para diseñar esta pantalla debes usar como *controller* una clase que herede de `UITableViewController`
 
-**Infraestructura y conexión con la pantalla anterior**
+### Creación de la interfaz y conexión con la pantalla anterior
 
 - Arrastra un "view controller" al *storyboard*
-- En la pantalla anterior, selecciona la vista de tabla y en el *attribute inspector* haz que tenga 1 *prototype cells*, Asegúrate de que el "reuse identifier" del prototipo se corresponde con el que estás usando en el código de `cellForRowAtIndexPath` de la tabla con el listado.
-- Haz `ctrl+arrastrar` entre la celda prototipo y la pantalla actual. Elige el tipo *push* para el *segue* (dentro de "selection segue").
+- En la pantalla anterior, haz `ctrl+arrastrar` entre la celda prototipo y la pantalla actual. Elige el tipo adecuado de *segue*.
 - Implementa una clase `DetalleViewController` que herede de `UIViewController` y asóciala a esta pantalla.
 
-**Implementación de la funcionalidad**
+### Implementación de la funcionalidad
 
-- Define en el `.h` del *controller* una `@property` del tipo de recurso que estés mostrando (`RCCharacterObject`, `RCComicsObject`, `RCCreatorObject`,...)
-- En el `prepareForSegue` instancia esta `@property` para que contenga el objeto a mostrar.
-- Diseña una pantalla en la que se muestren los datos del objeto (no es necesario que sean todos, solo los que quieras, para probar que funciona). Tendrás que crear un *outlet* por cada campo, y rellenar los campos en el `viewDidLoad` del *controller*. Consulta el .h de la clase elegida, o la documentación del API para saber qué propiedades tiene cada objeto.
+- Define en el `.h` del `DetalleViewController` una `@property` del tipo de recurso que estés mostrando (`RCCharacterObject`, `RCComicsObject`, `RCCreatorObject`,...)
+- En el `prepareForSegue` de la pantalla de lista instancia esta `@property` para que contenga el objeto a mostrar. Para saber qué fila de la tabla se ha seleccionado puedes seleccionar el método del objeto tabla llamado `indexPathForSelectedRow`, que devuelve el `indexPath` de la fila seleccionada. La propiedad `row` de este *index path* es el número de fila.
+
+> Fijate que la `@property` no puede ser privada porque en ese caso no sería accesible desde el *controller* de lista
+
+- Usa los componentes que consideres necesarios para mostrar los datos del objeto (no es necesario que sean todos, solo los que quieras, para probar que funciona). Tendrás que crear un *outlet* por cada campo, y rellenar los campos en el `viewDidLoad` del *controller*. Consulta el .h de la clase elegida, o la documentación del API de Marvelous para saber qué propiedades tiene cada objeto.
 - Entre otras cosas, en esta pantalla deberías mostrar la imagen del personaje, comic, creador o lo que sea que hayas elegido, a un tamaño relativamente pequeño. La carga de la imagen deberías hacerla en un hilo secundario, para no paralizar la interfaz de usuario si la imagen tarda en cargarse:
 
 ```objc
 NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 [queue addOperationWithBlock:^{
     //sustituye self.personaje por el objeto que quieres mostrar
+    //Un RCImageObject no es la imagen en sí, sino los datos de su URL
     RCImageObject *thumb = self.personaje.thumbnail;
     NSString *url = [NSString stringWithFormat:@"%@/portrait_uncanny.%@", 
                      thumb.basePath,  thumb.extension];
@@ -162,15 +225,14 @@ NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 
 Puedes consultar [esta página](http://developer.marvel.com/documentation/images) para ver el formato de las URL de las imágenes. Básicamente se construyen con una trayectoria base seguidas de un "modificador" de aspecto y tamaño (`portrait_small`, `landscape_medium`, ...) y la extensión del archivo.
 
-##Controlador modal
+##Imagen a tamaño completo (1 punto)
 
-Implementa una nueva pantalla en la que se pueda ver solo la imagen a mayor tamaño. Haz que la transición se realice con un *segue* modal pulsando sobre algún botón "ver imagen ampliada". 
+Implementa una nueva pantalla en la que se pueda ver solo la imagen a mayor tamaño. Haz que la transición se realice con un *segue* modal pulsando sobre algún botón "ver imagen ampliada" (si tienes activadas las *size classes* el tipo equivalente es `present modally`).
 
-Para volver atrás en este tipo de *segue* necesitas hacer un *unwind*, pero [parece haber un *bug* en iOS 8.0](http://stackoverflow.com/questions/25654941/unwind-segue-not-working-in-ios-8) que hace que no funcione en situaciones como la que se pide. Una alternativa es usar un *action* de un botón "volver atrás" para ejecutar
+En el API de Marvel, la URL de la imagen a tamaño completo se consigue simplemente concatenando las propiedades `basePath` y `extension`, de modo que sería prácticamente igual al código para cargar la imagen en la pantalla anterior pero sin poner el "modificador" (en el ejemplo era `portrait-uncanny`).
 
-```objectivec
-[self dismissViewControllerAnimated:YES completion:nil];
-```
-que debería dejar de mostrar el controlador modal actual.
+Para volver atrás en este tipo de *segue* necesitas hacerlo manualmente. Recuerda que lo hicimos así en la aplicación de "Pioneras".
 
-> Aclaración: en una aplicación real posiblemente usaríamos un *segue* de tipo "push", pero dado que se trata de un ejercicio el objetivo es probar todos los tipos de *segues* que conocemos.
+## Vista "Acerca de" (0,25 puntos) 
+
+Esta es la segunda de las pantallas del *tab bar*. Simplemente debe consistir en una imagen estática y un *text view* con información sobre la aplicación.
