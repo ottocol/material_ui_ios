@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Sesión 4: tablas</title>
+	</head>
+<body>
+<h1>Sesión 4: tablas</h1>
+
+<h2>Introducción</h2>
+
+<p>Las vistas de tabla (<code>UITableView</code>) se encargan de mostrar, gestionar y hacer <em>scrolling</em> de una tabla de elementos de una sola columna. Cada una de las filas se modela con un <code>UITableViewCell</code>.</p>
+
+<blockquote>
+<p>Si necesitamos más de una columna podemos usar <code>UICollectionView</code>, que veremos en la parte “avanzada” de la asignatura.</p>
+</blockquote>
+
+<p>El aspecto de las tablas es enormemente configurable, lo que hace que aparezcan múltiples veces en sus distintas “encarnaciones” en muchas aplicaciones iOS, por ejemplo, en las aplicaciones de Mail, Ajustes, Reloj…</p>
+
+<figure><img src="apps_tablas.png"/></figure>
+
+<p>Las tablas pueden ser <em>simples</em> (<code>UITableViewStylePlain</code>)</p>
+
+<p> o <em>agrupadas</em> (<code>UITableViewStyleGrouped</code>)</p>
+
+<p>Hay varios estilos predefinidos para las filas, que nos permiten mostrar diversos elementos: título, subtítulo, icono a la izquierda, … También podemos crear nuestros propios estilos de celda bien por código o bien gráficamente en el <em>interface builder</em>.</p>
+
+<h2>Creación de vistas de tabla</h2>
+
+<p>Una vista de tabla interactúa básicamente con tres objetos (aunque podemos implementar todas las funcionalidades en una única clase, como se suele hacer en los casos más simples)</p>
+
+<p>En primer lugar, el <em>view controller</em>. Ya hemos visto el papel que hace en las aplicaciones.</p>
+
+<p>En segundo lugar, el <em>data source</em>: las vistas de tabla solo almacenan directamente los datos de las filas actualmente visibles en pantalla. El resto se los piden a un objeto que debe ser conforme al protocolo <code>UITableViewDataSource</code>. Este es obligatorio, no podemos crear una tabla sin él.</p>
+
+<p>Y finalmente el <em>delegate</em>: para gestionar algunos eventos de manipulación de la tabla (como la edición, el borrado, o el mover una fila) y controlar algunos aspectos de la apariencia de las celdas, se usa el <code>UITableViewDelegate</code> </p>
+
+<p>Es muy habitual que el <em>controller</em>, el <em>delegate</em> y el <em>data source</em> sean el mismo objeto.</p>
+
+<p>Si usamos una vista de tabla dibujada en el <em>storyboard</em> podemos conectarla con los dos “colaboradores” gráficamente mediante el “Connections Inspector” del panel “Utilities” </p>
+
+<h2>Tablas estáticas</h2>
+
+<p>En algunos casos conocemos de partida los elementos que queremos dibujar en la tabla. Ejemplo típico de esto es la aplicación de <em>Ajustes</em>, en la que las opciones están colocadas en una tabla simplemente para que estén más organizadas y tengan un formato atractivo. Esto lo podemos conseguir con una <em>tabla estática</em>.</p>
+
+<p>Para crear una pantalla con una tabla estática arrastramos un <code>Table View Controller</code> al <em>storyboard</em>. Es un <em>controller</em> asociado a una vista de tabla que ocupa toda la pantalla del dispositivo. Por defecto usa una tabla dinámica, pero podemos cambiarlo seleccionando la tabla en el <code>Attributes inspector</code> y seleccionando <code>Static Cells</code> en la primera propiedad, <code>Content</code>.</p>
+
+<p>Podemos añadir secciones a la tabla y cambiar el número de celdas en cada sección. Para poder cambiar el número de celdas hay que tener seleccionada la sección deseada, lo que a veces es difícil con el ratón, por lo que podemos usar los nodos del <code>Document outline</code>:</p>
+
+<figure><img src="outline.png"/></figure>
+
+<blockquote>
+<p>Podemos aumentar el número de celdas de modo que no quepan en la pantalla. Para desplazarnos por la tabla podemos seleccionarla y hacer <em>scroll</em> con la rueda del ratón</p>
+</blockquote>
+
+<h2>Dibujar tablas dinámicas</h2>
+
+<p>El encargado de decirle a la vista de tabla qué contenido debe dibujar es el <em>datasource</em>. Este puede ser el objeto que nosotros queramos con tal de que implemente el <em>protocol</em> <code>UITableViewDataSource</code>. Habitualmente será el <em>controller</em> de la pantalla en la que está la tabla.</p>
+
+<h3>Conectar la tabla y el <em>datasource</em></h3>
+
+<p>Podemos conectar gráficamente la tabla con el <em>datasource</em> mediante el <code>Connections inspector</code> (el icono de la flecha - el último - en el área de <code>Utilities</code>). Si tenemos seleccionada la tabla aparecerán las propiedades que podemos conectar, entre ellas el <code>datasource</code>. Arrastramos (no hace falta <code>Ctrl</code>) desde el círculo que representa al <code>datasource</code> hasta el icono del <em>view controller</em> (el primero de los tres que aparecen en la parte superior de cada pantalla del <em>storyboard</em>)</p>
+
+<figure><img src="conectar_datasource_table.png"/></figure>
+
+<h3>Implementar los métodos del protocolo <code>UITableViewDataSource</code></h3>
+
+<p>Como mínimo el objeto que actúe de <em>datasource</em> debe implementar dos métodos:</p>
+
+<ul>
+	<li><code>tableView:numberOfRowsInSection:</code> que debe devolver el número de filas que tiene una determinada sección (de la única si solo hay una)</li>
+</ul>
+
+<pre><code>- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //supongamos que la propiedad &quot;datos&quot; es un array con los datos de la tabla
+    return [self.datos count];
+}
+</code></pre>
+
+<ul>
+	<li><code>tableView:cellForRowAtIndexPath:</code> debe devolver la celda correspondiente a un determinado número de fila y sección. Este merece una discusión más detallada que el anterior</li>
+</ul>
+
+<p>Lo más simple sería construir un nuevo objeto <code>UITableViewCell </code> por cada fila: </p>
+
+<pre><code>- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Construimos la celda y le damos un estilo de los predefinidos
+    UITableViewCell *celda = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@&quot;UnaCelda&quot;];
+    //Instanciamos el texto de la celda
+    celda.textLabel.text = self.datos[indexPath.row];
+    return celda;
+}
+
+</code></pre>
+
+<p>Aclaraciones:</p>
+
+<ul>
+	<li>un objeto <code>indexPath</code> especifica el número de fila (<code>row</code>) y de sección (<code>section</code>) con las propiedades del mismo nombre.</li>
+	<li>En un momento veremos qué es el <code>reuseIdentifier</code> del método inicializador de la celda. Por ahora simplemente le asignamos un <code>NSString</code> arbitrario</li>
+</ul>
+
+<blockquote>
+<p>Nota: el código anterior no se suele implementar tal cual en la realidad. Sería muy ineficiente por las razones que veremos a continuación.</p>
+</blockquote>
+
+<ul>
+	<li><p>Crear una nueva celda por cada fila es muy ineficiente dado que una tabla puede tener cientos o miles de ellas. Por eso se suele usar un truco ingenioso: se crea un pequeño número de celdas (las que se ven simultáneamente en pantalla) y luego se reutilizan conforme se va haciendo <em>scroll</em> por la tabla, rellenándolas con los nuevos datos. iOS ofrece soporte para esta reutilización manteniendo un <em>pool</em> de celdas que podemos reutilizar para rellenar con nuevos datos. </p>
+
+		<ul>
+			<li>Podemos sacar una celda del <em>pool</em> con <code>dequeueReusableCellWithIdentifier:</code>.</li>
+			<li>El identificador sirve para etiquetar el “tipo” de celda. En casos más complicados podríamos tener varios <em>pool</em> con distintos tipos de celda para reutilizar. En el ejemplo usaremos un único identificador (es arbitrario y lo elige el desarrollador)</li>
+		</ul></li>
+</ul>
+
+<pre><code>- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Solicitamos una celda del &quot;tipo&quot; desedo al &quot;pool&quot;
+    //Esto es mucho más rápido que crearlas desde cero 
+    UITableViewCell *celda = [tableView dequeueReusableCellWithIdentifier:@&quot;UnaCelda&quot;];
+    //si nos ha devuelto nil es que no habían celdas disponibles. 
+    //Tendremos que crear una, como hacíamos antes
+    if (celda == nil) {
+        celda = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@&quot;UnaCelda&quot;];
+    }
+    //Igual que antes rellenamos los datos y devolvemos la celda
+    celda.textLabel.text = self.datos[indexPath.row];
+    return celda;
+}
+</code></pre>
+
+<ul>
+	<li>Si cambiamos el conjunto de datos a mostrar en la tabla, para que los cambios se reflejen en la pantalla deberemos llamar al método <code>reloadData</code> de la vista de tabla.</li>
+</ul>
+
+<h2>Gestión de tablas</h2>
+
+<p>En las tablas dinámicas podemos por supuesto insertar y eliminar celdas. También podemos seleccionarlas haciendo <em>tap</em> sobre ellas. El encargado de procesar todas estas tareas es el <em>delegate</em> de la tabla</p>
+
+<h3>Seleccionar celdas</h3>
+
+<p>Cuando se selecciona una celda, el <em>delegate</em> recibe el mensaje <code>tableView:didSelectRowAtIndexPath:</code></p>
+
+<pre><code>- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *celda = [tableView cellForRowAtIndexPath:indexPath];
+    //Colocamos un &quot;checkmark&quot; en la celda o lo quitamos si ya estaba
+    if (celda.accessoryType==UITableViewCellAccessoryNone)
+        celda.accessoryType = UITableViewCellAccessoryCheckmark;
+    else
+        celda.accessoryType = UITableViewCellAccessoryNone;
+	//Hacemos que la celda se deseleccione visualmente
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+</code></pre>
+
+<h3>Insertar y eliminar filas</h3>
+
+<p>iOS nos ofrece de forma automática el “modo edición”, en el que en la parte izquierda de cada celda aparece un icono indicador de las operaciones que se pueden hacer con ella. Hay dos indicadores: </p>
+
+<ul>
+	<li><img src="DraggedImage.png"/> Una señal de “prohibido” para poder borrar la celda(pulsando sobre la señal y luego sobre el botón “Borrar” que aparece).</li>
+	<li><img src="DraggedImage-1.png"/> Un símbolo de ‘+’ que sirve para insertar una nueva celda</li>
+</ul>
+
+<p>Podemos activar el modo edición con el método <code>setEditing</code> del objeto <code>TableView</code>:</p>
+
+<pre><code>//&quot;miTabla&quot; es un outlet a la vista de tabla
+[self.miTabla setEditing:YES animated:YES];
+</code></pre>
+
+<p>Por defecto al activar el modo edición en todas las celdas aparecerá la señal de “prohibido”. Implementando en el <em>delegate</em> el método <code>tableView:editingStyleForRowAtIndexPath:</code> podemos especificar qué tipo de estilo de edición queremos para una celda determinada. El sistema nos “preguntará” el estilo de edición para un número de celda y nosotros debemos devolver <code>UITableViewCellEditingStyleDelete</code>o bien <code>UITableViewCellEditingStyleInsert</code>.</p>
+
+<p>Aunque el modo edición es automático, el borrado efectivo de las celdas y de su contenido lo tenemos que hacer nosotros, al igual que la inserción. Podríamos usar un código similar al siguiente:</p>
+
+<pre><code> (void) tableView:(UITableView *)tableView 
+              commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+              forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //si el usuario ha pulsado sobre borrar
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //Nos cargamos el objeto de la lista de valores
+        //IMPORTANTE: hay que borrar primero del modelo antes que 
+        //la celda de la tabla
+        [self.datos removeObjectAtIndex:indexPath.row];
+        //lo borramos visualmente de la tabla
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                    withRowAnimation:UITableViewRowAnimationFade];
+    }
+   //si está insertando una nueva fila
+    else {
+        NSString *nuevoTexto = self.miCampo.text;
+        [self.datos insertObject:nuevoTexto atIndex:indexPath.row];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                         withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+</code></pre>
+
+<p>Podemos controlar cómo queremos que aparezca cada celda en el “modo edición”</p>
+
+<pre><code>- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView 
+                editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //En la última celda hacemos que aparezca un icono de &quot;insertar&quot;
+    if (indexPath.row==[self.datos count]-1)
+        return UITableViewCellEditingStyleInsert;
+    //En el resto que se puedan borrar
+    else
+        return UITableViewCellEditingStyleDelete;
+}</code></pre>
+
+</body>
+</html>
+
