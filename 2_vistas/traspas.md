@@ -53,15 +53,14 @@ vista.backgroundColor = [UIColor redColor];
 
 ##Algunas propiedades geométricas de las vistas
 
-```objectivec
-// Limites en coordenadas locales. Su origen siempre es (0,0)
-CGRect area = [vista bounds];    
+```swift
+// Limites en coordenadas locales
+// Su origen siempre es (0,0)
+CGRect areaLocal = vista.bounds
 // Posición del centro de la vista en coordenadas de su supervista
-CGPoint centro = [vista center];
+CGPoint centro = vista.center
 // Marco en coordenadas de la supervista
-CGRect marco = [vista frame]
-//Transformación afín(escalado y/o rotación y/o traslación)
-[vista setTransform:CGAffineTransformMakeScale(2, 1.5)];
+CGRect marco = vista.frame
 ```
 
 ---
@@ -77,14 +76,13 @@ CGRect marco = [vista frame]
 
 ##Color, transparencia, estado...
 
-```objectivec
-UIButton *boton = [[UIButton alloc] init];
-...                 //Habría que establecer el tamaño y contenido
-boton.backgroundColor = [UIColor redColor];
+```swift
+boton = UIButton()
+boton.backgroundColor = UIColor.red
 boton.alpha = 0.5   //Transparencia del 50%
-boton.hidden = YES; //Lo ocultamos, ya no se ve ni recibe eventos
-boton.hidden = NO;
-boton.enabled = NO; //Lo deshabilitamos
+boton.isHidden = true; //Lo ocultamos, ya no se ve ni recibe eventos
+boton.isHidden = false;
+boton.isEnabled = true; //Lo deshabilitamos
 ```
 
 ---
@@ -123,25 +121,27 @@ Las alertas suelen ser inesperadas para el usuario. Sin embargo las *action shee
 
 Sirve tanto para alertas como para *action sheets*
 
-```objectivec
-UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Hola amigo" 
-                             message:@"Elige, por favor" 
-                             preferredStyle:UIAlertControllerStyleAlert];
-UIAlertAction *susto = [UIAlertAction actionWithTitle:@"Susto" 
-                          style:UIAlertActionStyleDefault 
-                          handler:^(UIAlertAction * _Nonnull action) {
-                             NSLog(@"Uhhhh!, haber elegido muerte...");
-                        }];
-UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte" 
-                          style:UIAlertActionStyleDefault 
-                          handler:^(UIAlertAction * _Nonnull action) {
-                             NSLog(@"Haber elegido susto...");
-                        }];
-[alert addAction:susto];
-[alert addAction:muerte];
-[self presentViewController:alert animated:YES completion:^{
-    NSLog(@"¡Has elegido bien!");
-}];
+```swift
+//El alert en sí. Vemos que el preferredStyle es .alert
+let alert = UIAlertController(title: "Hola amigo", 
+            message: "Elige, por favor", 
+            preferredStyle: .alert)
+//cada opción es un UIAlertAction
+let susto = UIAlertAction(title: "Susto", style: .cancel) {
+    action in
+      print("BU!!! haber elegido muerte!")
+}
+let muerte = UIAlertAction(title: "Muerte", style: .default) {
+    action in
+      print("Aquí se acaba todo")
+}
+//Añadimos las opciones al cuadro de diálogo
+alert.addAction(susto)
+alert.addAction(muerte)
+//Mostramos el alert con present, como se hace con cualquier controller
+self.present(alert, animated: true) {
+    print("Ha desaparecido el alert")
+}
 ```
 
 ---
@@ -149,29 +149,32 @@ UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte"
 ## Action sheet
 
 <!-- .element class="stretch" -->
-![](img/susto_o_muerte_action.png)
+![](img/action_sheet.png)
 
 ---
 
-```objectivec
-UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Hola amigo"
-                                    message:@"Elige, por favor"
-                                    preferredStyle:UIAlertControllerStyleActionSheet];
-UIAlertAction *susto = [UIAlertAction actionWithTitle:@"Susto"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * _Nonnull action) {
-                                    NSLog(@"Uhhhh!, haber elegido muerte...");
-}];
-UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte"
-                                style:UIAlertActionStyleDestructive
-                                handler:^(UIAlertAction * _Nonnull action) {
-                                    NSLog(@"Haber elegido susto...");
-}];
-[alert addAction:susto];
-[alert addAction:muerte];
-[self presentViewController:alert animated:YES completion:^{
-    NSLog(@"¡Has elegido bien!");
-}];
+```swift
+let actionSheet = UIAlertController(title: "Opciones", 
+    message: "Seleccione la opción", 
+    preferredStyle: .actionSheet)
+let archivar = UIAlertAction(title: "Archivar", style: .default){
+            action in
+            print("Aquí se archivaría el mensaje")
+}
+let eliminar = UIAlertAction(title: "Eliminar", style: .destructive) {
+            action in
+            print("Aquí se eliminaría el mensaje")
+        }
+let cancelar = UIAlertAction(title: "Cancelar", style: .cancel) {
+            action in
+            print("Aquí no se haría nada")
+}
+actionSheet.addAction(archivar)
+actionSheet.addAction(eliminar)
+actionSheet.addAction(cancelar)
+self.present(actionSheet, animated: true) {
+   print("Ha desaparecido el action sheet")
+}
 ```
 
 ---
@@ -181,27 +184,28 @@ UIAlertAction *muerte = [UIAlertAction actionWithTitle:@"Muerte"
 
 Un problema típico es cómo "quitarlo de enmedio". Para quitarlo al pulsar sobre "intro"
 
-* Crear un *action* con `Ctrl+Arrastrar` entre el campo y el `.m` del controller. En el menú desplegable elegir el evento `Did end on exit`
+* Crear un *action* con `Ctrl+Arrastrar` entre el campo y el controller. En el menú desplegable elegir el evento `Did end on exit`, y el `type` `UITextField`
 * En el *action* hacer
 
-```objectivec
-- (IBAction)pulsadoIntro:(id)sender {
-  [sender resignFirstResponder];
-  //También valdría esto
-  [self.view endEditing:YES;]
- }
+```swift
+@IBAction func introPulsado(_ sender: UITextField) {
+     sender.resignFirstResponder()
+     //También valdría esto
+     self.view.endEditing(true)
+     //O incluso no hacer nada!!
+}  
 ```
 
 ---
 
 ##Teclado sin intro
 
-- El teclado numérico no tiene intro, en este caso lo típico es hacer que se oculte cuando se hace *tap* en el background
+El teclado numérico no tiene intro, en este caso lo típico es hacer que se oculte cuando se hace *tap* en el background
 
-```objectivec
--(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touch en la pantalla!!");
-    [self.view endEditing:YES];
- }
+```swift
+override func touchesEnded(_ touches: Set<UITouch>, with: UIEvent?) {
+    print("¡¡touch en la pantalla!!");
+    self.view.endEditing(true);
+}
 ```
 
