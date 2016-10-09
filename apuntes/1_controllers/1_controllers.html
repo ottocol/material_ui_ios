@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>1_controllers</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Sesión 1: View Controllers</h1>
+
+<h2 id="toc_1"><em>View controllers</em>. Tipos básicos</h2>
+
+<p>Los <em>view controllers</em> son la C del MVC. Su tarea más importante es gestionar una jerarquía de vistas. Cada <em>controller</em> tiene una vista “principal” o “raíz” (su propiedad <code>view</code>), y esa a su vez tiene <em>subvistas</em> que por supuesto pueden contener otras <em>subvistas</em> y así sucesivamente. </p>
+
+<p><img src="DraggedImage.png" alt="Tomado de &quot;View Controller Programming Guide&quot; de Apple" title="Tomado de &quot;View Controller Programming Guide&quot; de Apple"></p>
+
+<p>Hay dos tipos básicos de controladores: los que muestran directamente contenido (<em>content controllers</em>) y los que contienen otros contenedores (<em>container controllers</em>). Estos últimos contienen a otros controladores. Lo que hace el contenedor es redimensionar y colocar la vista principal de sus hijos, pero cada uno de ellos es responsable de mostrar su propio contenido</p>
+
+<p><img src="DraggedImage-1.png" alt="Ejemplo de contenedor: split view en un iPad (tomado de la View Controller Programming Guide de Apple)" title="Ejemplo de contenedor: split view en un iPad (tomado de la View Controller Programming Guide de Apple)"></p>
+
+<h3 id="toc_2">Otras tareas de los <em>view controllers</em></h3>
+
+<p>Además de gestionar la jerarquía de vistas, los controladores actúan como el “pegamento” que relaciona la vista con el modelo. El controlador es el lugar típico para poner el código que reacciona a los eventos del usuario, como por ejemplo qué hacer cuando se pulsa un botón.</p>
+
+<blockquote>
+<p>Es nuestra responsabilidad como desarrolladores asegurarnos de que no colocamos demasiada lógica en el código del <em>controller</em>. La lógica debería ir en el modelo, no en el <em>controller</em>, que debería contener el mínimo código imprescindible para comunicar vista y modelo.</p>
+</blockquote>
+
+<p>Por otro lado, los <em>controllers</em> son los responsables de adaptar las dimensiones de los componentes de la interfaz a las dimensiones reales de la pantalla. Para ello se usan varios mecanismos: <em>autolayout</em>, <em>size classes</em> y <em>traits</em>, que veremos a nivel introductorio en las siguientes sesiones.</p>
+
+<h3 id="toc_3">Ciclo de vida de un <em>controller</em></h3>
+
+<p>Cada controlador va pasando por una serie de estados conforme se carga la aplicación, se muestra la pantalla que este gestiona, se cambia de pantalla, etc. </p>
+
+<p>Hay tres métodos principales en los que podemos colocar código propio, según el momento en que queramos que se ejecute:</p>
+
+<ul>
+<li><code>viewDidLoad()</code>: este método ya lo hemos usado en nuestras aplicaciones. Se dispara cuando se carga la raíz de la jerarquía de vistas del controlador. Típicamente se ejecutaría una sola vez en toda la aplicación, y por ello se  suele usar para inicializar propiedades del controlador. No obstante si el sistema anda bajo de memoria puede liberar la correspondiente al controlador y como resultado este método podría ejecutarse más de una vez.</li>
+<li><code>viewWillAppear()</code>: se ejecuta inmediatamente antes de dibujar la vista.<br></li>
+<li><code>viewDidAppear()</code>: se ejecuta cuando la vista ya se ha dibujado. Útil para colocar código relativo por ejemplo a animaciones.</li>
+</ul>
+
+<p>Los métodos anteriores y sus “complementarios” (con <code>disappear</code> en lugar de <code>appear</code>) se recogen en el siguiente esquema</p>
+
+<p><img src="DraggedImage-2.png" alt=""></p>
+
+<h3 id="toc_4">Rotaciones</h3>
+
+<p><a href="https://developer.apple.com/reference/uikit/uiviewcontroller">https://developer.apple.com/reference/uikit/uiviewcontroller</a></p>
+
+<h3 id="toc_5">Instanciar controladores y vistas</h3>
+
+<p>Podemos hacerlo de varias formas. De más sencilla a más compleja (pero también más flexible)</p>
+
+<ul>
+<li><strong>Gráficamente, con *storyboards</strong>*: tanto las vistas como el controlador están en el <em>storyboard</em>
+
+<ul>
+<li><strong>Gráficamente, con <code>.nib</code></strong>: en cada archivo <code>nib</code> guardamos una pantalla (con su jerarquía de vistas), pero no el controlador, que se crea por código</li>
+</ul></li>
+<li><strong>Totalmente por código</strong>: tenemos que instanciar el controlador y en su método  <code>loadView</code> crear la jerarquía de vistas que queremos que contenga (<code>UIView</code>, <code>UIButton</code>, lo que sea) y asignar la raíz de la jerarquía de vistas a <code>self.view</code>.</li>
+</ul>
+
+<p>En los siguientes apartados vamos a ver las dos primeras opciones con algo más de detalle.</p>
+
+<h2 id="toc_6">Storyboards</h2>
+
+<p>Desde Xcode 5 los <em>storyboards</em> son la forma recomendada por Apple de crear interfaces de usuario. Un <em>storyboard</em> contiene la representación gráfica de las “pantallas” (los controladores) que componen nuestra aplicación y de las relaciones entre ellas. Además el sistema se encarga automáticamente de moverse por las pantallas cuando sucedan determinados eventos, instanciando los controladores y las vistas automáticamente.</p>
+
+<h3 id="toc_7">El <em>controller</em> de cada pantalla</h3>
+
+<p>Por defecto, los view controller que añadimos visualmente al <em>storyboard</em> son clases propias de Cocoa, es decir, no tenemos que escribir código pero tampoco podemos sobreescribir sus métodos ya que no son clases nuestras. Podemos cambiar la clase de cualquier elemento en el Interface Builder seleccionándolo y yendo al icono del <code>Identity inspector</code>: <img src="Captura%20de%20pantalla%202014-10-18%20a%20las%201.45.18.png" alt=""> en el área de <code>Utilities</code>. Seleccionaremos el <em>controller</em> y cambiaremos su <code>Class</code> por una escrita por nosotros y que herede de <code>UIViewController</code>.</p>
+
+<blockquote>
+<p>Seleccionar el <em>view controller</em> con el ratón haciendo clic sobre él a veces no es sencillo, ya que acabamos seleccionando los elementos de la vista contenidos en él. Podemos hacerlo más fácilmente pulsando el icono de <em>view controller</em> que aparece en su parte superior
+<img src="Captura%20de%20pantalla%202016-10-05%20a%20las%2018.03.29.png" alt=""></p>
+</blockquote>
+
+<h3 id="toc_8">El <em>controller</em> inicial</h3>
+
+<p>En cada momento habrá un <em>view controller</em> inicial que es el que se muestra cuando se carga la aplicación. Se distingue visualmente porque tiene una flecha apuntando a él desde la izquierda:</p>
+
+<p><img src="controlador_inicial.png" alt=""></p>
+
+<p>Para <strong>convertir un <em>view controller</em> en inicial</strong>, teniéndolo seleccionado ir al icono de propiedades <img src="Captura%20de%20pantalla%202014-10-18%20a%20las%200.49.25.png" alt=""> del área de <code>Utilities</code> y marcar sobre el <em>checkbox</em> <code>Is initial view controller</code></p>
+
+<p><img src="view_controller_icon.png" alt=""></p>
+
+<p>También podemos arrastrar la flecha que indica que un controlador es el inicial desde el actual hasta el que queremos convertir en inicial.</p>
+
+<h3 id="toc_9">Segues</h3>
+
+<p>Son las transiciones entre los <em>controllers</em>. Podemos <strong>crear un <em>segue</em> visualmente</strong> con <code>Ctrl+Arrastrar</code> entre un elemento cualquiera de un view controller (por ejemplo un botón), que será el de <em>controller</em> de origen, y el <em>controller</em> destino. Se nos dará a <strong>elegir el tipo de *segue</strong>* en un menú contextual.</p>
+
+<p><img src="tipos_segue.png" alt=""></p>
+
+<h4 id="toc_10">Tipos básicos de <em>segue</em></h4>
+
+<p>Como vemos en el menú contextual hay cuatro tipos de <em>segue</em>. Dos de ellos son <em>mostrar</em> (<em>show</em>) y otros dos <em>presentar</em> (<em>present</em>). Además podemos programar nuestro propio tipo de <em>segue</em> con <em>custom</em>.</p>
+
+<ul>
+<li> <em>Show</em> es la forma recomendada habitualmente, ya que permite que el controlador actual “decida” cómo mostrar físicamente el nuevo. Por ejemplo si el controlador actual “ocupa” toda la pantalla, el nuevo también lo hará, pero si por ejemplo es un <em>tab bar controller</em> solo cambiará la parte de la pantalla que muestra contenido, no la barra de herramientas
+<img src="Captura%20de%20pantalla%202016-10-07%20a%20las%2015.27.09.png" alt="Tab bar controller: cuando se muestra un nuevo controlador, se hace solo en el área de contenido, sin &quot;machacar&quot; la barra de botones" title="Tab bar controller: cuando se muestra un nuevo controlador, se hace solo en el área de contenido, sin &quot;machacar&quot; la barra de botones"></li>
+<li> <em>Present</em> quiere decir que el nuevo <em>controller</em> se mostrará de forma modal, de manera similar a cuando en un interfaz gráfico se muestra por ejemplo un cuadro de diálogo modal. No obstante esto no quiere decir que el <em>controller</em> antiguo se siga viendo “por debajo”, ya que en dispositivos con tamaño de pantalla limitado el nuevo ocupará toda la pantalla. </li>
+</ul>
+
+<p>Como vemos en el menú contextual, en el caso del <em>show</em> se distingue además entre <code>Show</code> “a secas” y <code>Show detail</code>. El primero es el indicado cuando el nuevo <em>controller</em> va a sustituir completamente al anterior y el segundo cuando el nuevo es “secundario” con respecto al anterior (como en el ejemplo que poníamos del <em>tab bar</em>.</p>
+
+<p>En el caso del <em>present</em>, se distingue entre <code>Present Modally</code> y <code>Present As Popover</code>. El primero sería lo que todo el mundo entiende por “modal”: el nuevo controller se pone “encima” del anterior. El segundo es el típico <em>popover</em> que aparece en el iPad.</p>
+
+<p><img src="DraggedImage-3.png" alt="Tomado de la documentación de Apple" title="Tomado de la documentación de Apple"></p>
+
+<blockquote>
+<p>En realidad la forma concreta de mostrar exactamente el nuevo controlador la decide iOS dependiendo de las dimensiones actuales del dispositivo. Por ejemplo en un iPhone SE en vertical no aparecerá un <em>popover</em> aunque lo especifiquemos, la que la pantalla es muy pequeña para ello.</p>
+</blockquote>
+
+<p>Podemos <strong>configurar las propiedades del *segue</strong>* haciendo clic sobre él y yendo al icono de propiedades <img src="Captura%20de%20pantalla%202014-10-18%20a%20las%200.49.25-1.png" alt=""> del área de <code>Utilities</code>. Aquí podemos cambiar el tipo y también la transición usada para navegar de una pantalla a otra.</p>
+
+<h4 id="toc_11">Estilos de presentación y de transición</h4>
+
+<p>Podemos usar diversos estilos a la hora de presentar de forma modal un <em>controller</em>. Por ejemplo podemos indicar que el nuevo controlador debe ocupar toda la pantalla, o bien solo el alto dejando una zona a los lados, o bien un recuadro central como un cuadro de diálogo…</p>
+
+<p><img src="DraggedImage-4.png" alt="Tomado de la documentación de Apple" title="Tomado de la documentación de Apple"></p>
+
+<p>Estos estilos se definen <strong>en una propiedad del <em>controller</em> a presentar, y no del *segue</strong>*. En Xcode podemos cambiarlos con la propiedad <code>Presentation</code> en el <em>attribute inspector</em> <img src="Captura%20de%20pantalla%202014-10-18%20a%20las%200.49.25-2.png" alt=""> del <em>controller</em>:</p>
+
+<p><img src="Captura%20de%20pantalla%202016-10-07%20a%20las%2016.37.20.png" alt=""></p>
+
+<p>En Swift especificamos el estilo dando valores a la propiedad <code>modalPresentationStyle</code> del controller que vamos a presentar.</p>
+
+<p>Por otro lado, también podemos especificar una <strong>animación</strong> para la transición entre el <em>controller</em> actual y el siguiente. De nuevo es una propiedad del <em>controller</em> destino, no del <em>segue</em>. En Xcode se controla gráficamente con la propiedad <code>Transition style</code> del <em>inspector de atributos</em>. En Swift con la propiedad <code>modalTransitionStyle</code> del <em>controller</em> a presentar.</p>
+
+<h4 id="toc_12">Pasar datos de un <em>controller</em> a otro en un <em>segue</em></h4>
+
+<p>Cuando se va a saltar de un <em>controller</em> a otro a través de un <em>segue</em>, se llama al método <code>prepare(for:sender:)</code> del <em>controller</em> origen. Podemos sobreescribir este método para pasarle datos al <em>controller</em> destino. El primer parámetro va a instanciarse al <em>segue</em> y a partir de este podemos obtener una referencia al destino.</p>
+
+<p>Por ejemplo supongamos que tenemos dos <em>controller</em> conectados por un <em>segue</em>, y este se dispara con un botón en el primero.</p>
+
+<p>Supongamos que el primer <em>controller</em> es un objeto de la clase <code>ViewController</code>, mientras que el segundo es de la clase <code>ViewController2</code>. En el código de <code>ViewController2</code> podría haber algo como:</p>
+
+<div><pre><code class="language-swift">class ViewController2 : UIViewController {
+    var mensaje = &quot;&quot;
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(self.mensaje)
+    }
+}</code></pre></div>
+
+<p>Es decir, imprimimos un mensaje cuando se carga la pantalla (lo normal sería mostrarlo en un <code>label</code> o similar, pero para los propósitos de este ejemplo nos basta con que salga en la consola).</p>
+
+<p>Podemos acceder a esta propiedad <code>texto</code> desde el <em>controller</em> anterior sobreescribiendo el método <code>prepare(for:sender:)</code></p>
+
+<div><pre><code class="language-swift">override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier==&quot;siguiente&quot;) {
+            if let vc2 = segue.destination as? ViewController2 {
+                vc2.mensaje = &quot;Bienvenidos a la pantalla 2&quot;
+            }
+        }
+ }</code></pre></div>
+
+<h4 id="toc_13">Volver atrás en un <em>segue</em></h4>
+
+<p>Aunque podemos crear un <em>segue</em> de modo visual, no podemos configurar visualmente cómo volver a la pantalla anterior cuando hemos seguido un <em>segue</em>. Esta “vuelta atrás” se llama <em>unwinding</em> y para conseguirla tenemos que escribir algo de código.</p>
+
+<p>En el <em>controller</em> <em>al que se vuelve atrás</em> debemos implementar un método que puede tener el nombre que deseemos pero debe tener una signatura específica:
+- Está “marcada” con un <code>@IBAction</code>
+- Tiene como único parámetro un <code>UIStoryboardSegue</code>, que es el <em>segue</em> que se está usando para volver atrás. Por ejemplo</p>
+
+<div><pre><code class="language-swift">@IBAction func miUnwind(segue: UIStoryboardSegue) {
+    print(&quot;Volviendo atrás por \(segue.identifier)...&quot;)
+}</code></pre></div>
+
+<p>Ahora en la pantalla que dispara el <em>unwind</em> debemos conectar usando <code>Ctrl+Arrastrar</code> el elemento de interfaz que produce la vuelta atrás con el icono de <code>Exit</code> que aparece en la parte de arriba.</p>
+
+<p><img src="unwind_segue.png" alt=""></p>
+
+<blockquote>
+<p>Si intentamos hacer esta operación de <code>Ctrl+Arrastrar</code> sin haber implementado el método anterior, veremos que no tiene efecto</p>
+</blockquote>
+
+<p>En el método del <em>unwinding</em>, nótese que podemos usar el parámetro, que es el <em>segue</em>, para obtener el <code>destination</code>, que ahora será el <em>controller</em> al que volvemos.</p>
+
+<p>Finalmente, decir que cuando se produce un <em>unwind</em>, el controlador desde el que se vuelve también recibe una llamada a <code>prepare(for:sender:)</code>, método que podemos sobreescribir si queremos aprovechar para realizar alguna operación antes de volver.</p>
+
+<h2 id="toc_14">NIBs</h2>
+
+<p>Un problema con los <em>storyboards</em> es que no funcionan bien para desarrollar en equipo. Aunque dos desarrolladores modifiquen distintas pantallas de la aplicación, si ambas están en el mismo <em>storyboard</em> tendremos problemas, ya que no es tan fácil resolver conflictos de versiones como cuando trabajamos con código Swift.</p>
+
+<p>En algunas ocasiones puede interesarnos más que cada desarrollador trabaje con sus propias pantallas, o al menos que cada una pueda modificarse de forma individual. Esto lo conseguimos con los archivos NIB, que almacenan una única jerarquía de vistas: típicamente una “pantalla”, aunque también puede ser una subvista compleja.</p>
+
+<p>Un archivo NIB (o <code>.xib</code>, en un momento veremos la diferencia) contiene la jerarquía de vistas asociada a un determinado <em>view controller</em>, pero normalmente no se crea de manera manual, sino visualmente con el Interface Builder. De hecho, el nombre significa “NeXT Interface Builder”, referenciando la famosa plataforma <a href="http://en.wikipedia.org/wiki/NeXTSTEP">NeXTSTEP</a> de la que hereda y es deudora Cocoa.</p>
+
+<p>Hasta que apareció iOS 5 los NIB eran la forma habitual de crear interfaces de usuario, pero por defecto las versiones actuales de Xcode (desde la 5, correspondiéndose con iOS7) usan <em>storyboards</em>. Nótese que un NIB contiene únicamente la parte gráfica de “una pantalla” de nuestra aplicación y que por tanto es responsabilidad del desarrollador cambiar de un controlador a otro y cargar el NIB correspondiente conforme se va navegando.</p>
+
+<p>Un archivo .xib, que es lo que vemos en la lista de archivos de proyecto en Xcode, es básicamente un NIB serializado en forma de XML, lo que podemos comprobar haciendo <em>clic</em> sobre él con el botón derecho en Xcode y seleccionando <code>Open as</code> &gt; <code>Source code</code>.</p>
+
+<p>En Xcode podemos crear un NIB de dos formas:
+- Crear un controller y automáticamente un NIB asociado
+- Crear directamente el NIB y luego asociarle un controller por código</p>
+
+<h3 id="toc_15">Crear y editar un NIB</h3>
+
+<p>Podemos crear un <em>view controller</em> con un NIB asociado con <code>File</code>&gt;<code>New</code>&gt; <code>File...</code>, seleccionando la plantilla “Cocoa Touch Class” dentro del apartado “Source” y en el paso siguiente, haciendo que nuestra clase sea subclase de un <em>controller</em> estándar (por ejemplo <code>UIViewController</code>) y marcando la casilla <code>create XIB file</code>. </p>
+
+<p><img src="create_controller_nib.png" alt=""></p>
+
+<p>También podemos crear directamente un NIB, sin <em>controller</em>, yendo al menú <code>File</code>&gt;<code>New</code>&gt; <code>File...</code> y seleccionando la plantilla “View” dentro del apartado “User interface”.</p>
+
+<p><img src="nuevo_nib.png" alt=""></p>
+
+<p>El editor visual para NIB es el mismo que para <em>storyboard</em>, con la única diferencia de que estamos editando una “única pantalla” de nuestra aplicación.</p>
+
+<p>El NIB tiene un concepto que no tienen los <em>storyboard</em> y es el del <strong>File’s Owner</strong>. Este es el objeto que ha cargado en memoria el NIB. Normalmente el “propietario” del NIB va a ser el <em>controller</em> asociado, pero puede ser cualquier otro objeto. El <em>file<code>s owner</code></em> tiene su propio icono en el editor visual</p>
+
+<p><img src="files_owner.png" alt=""></p>
+
+<blockquote>
+<p>En el módulo de introducción a iOS creábamos visualmente el esqueleto de los <em>outlets</em> y <em>actions</em> haciendo <code>Ctrl-Drag</code> desde los elementos del interfaz hacia el código fuente. También se pueden crear <em>outlets</em> y actions arrastrando entre el icono del File’s Owner y el elemento de interfaz, pero es un método ligeramente distinto (primero se escribe manualmente el código y luego se hace la conexión).</p>
+</blockquote>
+
+<p>Podemos especificar la clase concreta del File’s owner haciendo clic sobre su icono y yendo al <code>Identity inspector</code> del área de <code>Utilities</code>. Aquí normalmente seleccionaremos el <em>controller</em> que queremos que gestione esta “pantalla” de la aplicación.</p>
+
+<h3 id="toc_16">Mostrar un controller con un NIB</h3>
+
+<p>Si el NIB tiene un <em>controller</em> asociado, se cargará automáticamente al presentar el <em>controller</em>. Por ejemplo, supongamos que hemos creado una clase <code>ViewControllerNIB</code>. Una vez creada una instancia del controller especificamos, si es necesario, el estilo de la transición (<code>modalTransitionStyle</code>) y el estilo de presentación (<code>modalPresentationStyle </code>). Y finalmente presentamos el <em>controller</em> con <code>present(_,animated:,completion:)</code>, donde:
+- <code>animated</code> es un booleano que indica si queremos o no animación
+- <code>completion</code> es una clausura en la que ponemos el código a ejecutar una vez se haya presentado el <em>controller</em></p>
+
+<div><pre><code class="language-swift">//creamos el controller
+let vc = ViewControllerNIB()
+//Seleccionamos la transición. Por defecto es &quot;coverVertical&quot;
+vc.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal;
+//presentamos el controller. Usamos una &quot;trailing closure&quot;
+self.present(vc, animated: true) {
+   print(&quot;presentado!&quot;)
+}</code></pre></div>
+
+<p>Ahora, para volver atrás y dejar de ver el <em>controller</em> presentado, usamos el método <code>dismiss(animated:completion)</code>, cuyos parámetros son iguales que el <code>present</code> excepto el primero que se omite. Este método lo podemos implementar en el controlador que se ha presentado, o bien en el <em>presentador</em>, ya que si el “presentado” no lo implementa el sistema lo redirige al otro. </p>
+
+<h2 id="toc_17">Ejercicios de <em>view controllers</em></h2>
+
+<p>Vamos a hacer una aplicación que vamos a llamar “Pioneras”, y que nos dará datos de algunas mujeres pioneras de la informática. La aplicación tendrá una pantalla principal en la que aparecerán sus imágenes, y haciendo <em>tap</em> sobre cada una podremos ir a las pantallas secundarias donde se nos dará más información.</p>
+
+<blockquote>
+<p>Al crear el proyecto aseguráos de estar usando git (Sea desde Xcode o manualmente) ya que habrá que guardar y marcar el estado con un commit especial en un momento intermedio</p>
+</blockquote>
+
+<h3 id="toc_18">Realizar la estructura básica de la aplicación</h3>
+
+<ol>
+<li>En <a href="recursos.zip">este archivo</a> tenemos las imágenes de las tres pioneras: Ada Lovelace, Grace Hopper y Barbara Liskov, que como siempre <strong>arrastraremos al <code>Assets.xcassets</code></strong>. También tenemos los textos sobre ellas que se mostrarán en las pantallas secundarias.</li>
+<li>Crea tres botones en la pantalla principal, y para cada uno de ellos en lugar de texto vamos a usar como imagen de fondo la de cada mujer. Al final cada botón debería ocupar todo el ancho de la pantalla y más o menos un tercio del alto.
+&gt; Importante: no es necesario que la interfaz sea perfecta (todos los botones exactamente del mismo alto, etc). De hecho si la pruebas en un dispositivo de tamaño de pantalla distinto al que estás usando ahora mismo en Xcode verás que se ve “fatal”. Para hacer que todos los botones tengan el mismo alto  y que se adapten bien a la pantalla usaremos un mecanismo que todavía no hemos visto denominado <em>autolayout</em>. Por el momento  vamos a ignorar este tema</li>
+<li>Arrastra un nuevo “view controller” al storyboard (una “pantalla” nueva), que será el que aparezca cuando se pulse en el primero de los botones (el de Ada Lovelace). Inserta un campo de texto de varias líneas (<em>text view</em>) y copia en él el contenido de <code>lovelace.txt</code></li>
+<li>Ahora <strong>establece el <em>segue</em> entre las dos pantallas</strong>: haz <code>Ctrl+Arrastrar</code> desde el primero de los botones con la imagen de Ada Lovelace hasta la segunda pantalla. 
+
+<ul>
+<li>Si haces <em>clic</em> en el <em>segue</em> y vas al <em>Attribute inspector</em> puedes cambiar las propiedades, pero tal como está hecha la aplicación solo va a tener efecto la <code>transition</code>. Pon el valor que quieras.</li>
+<li>Ejecuta el proyecto para comprobar que funciona lo que has hecho, aunque <em>todavía no puede volver atrás desde la pantalla secundaria</em></li>
+</ul></li>
+<li>Implementa la opción de <strong>volver atrás</strong> de la secundaria a la principal
+
+<ul>
+<li>Crea un botón “atrás” en la pantalla secundaria y colócalo en la parte de arriba (para que no lo tape el teclado <em>on-screen</em> si aparece)</li>
+<li>En el <em>controller</em> destino crea un método para que funcione el <em>unwinding</em> (no hace falta que haga nada, solo que exista)</li>
+</ul></li>
+</ol>
+
+<div><pre><code class="language-swift">@IBAction func retornoDeSecundaria(segue: UIStoryboardSegue) {
+    
+}</code></pre></div>
+
+<ul>
+<li>Con <code>Ctrl+Arrastrar</code> conecta el botón “atrás” con el icono de “Exit” de la parte superior del <em>controller</em>
+
+<ul>
+<li>Ejecuta el proyecto y comprueba que puedes volver atrás desde la pantalla secundaria</li>
+</ul></li>
+<li>Repite lo que has hecho en el caso de Ada Lovelace para las otras dos mujeres, creando las pantallas secundarias y la navegación adelante y atrás.</li>
+</ul>
+
+<p><strong>Aseguráos de guardar el estado actual del proyecto</strong> con un commit cuyo comentario sea “version 1”.</p>
+
+<h2 id="toc_19">Comunicar un <em>controller</em> con otro</h2>
+
+<p>Es un poco redundante tener tantas pantallas secundarias cuando en realidad lo único que cambia es el texto a mostrar. Valdría con una sola secundaria en la que cambiáramos dinámicamente dicho texto. Vamos a implementarlo así.</p>
+
+<p>Ahora podéis eliminar los segues y las pantallas secundarias, es mejor crearlos de nuevo.</p>
+
+<h3 id="toc_20">Crear la nueva interfaz</h3>
+
+<ul>
+<li>Crea de nuevo una pantalla secundaria con un campo de texto de varias líneas</li>
+<li>Con <code>Ctrl+arrastrar</code> podemos crear un <em>segue</em> desde cada uno de los botones hasta la pantalla. Habrán tres <em>segues</em> que lleguen a la misma, no debería ser problema.</li>
+<li>Añádele a la pantalla el botón de “atrás” y conéctalo con el icono de “exit”. El código necesario para el <em>unwinding</em> (método <code>retornoDeSecundaria</code>) ya debería estar en el <code>ViewController</code></li>
+<li>Comprueba que la navegación funciona correctamente yendo adelante y atrás</li>
+</ul>
+
+<h3 id="toc_21">Crear un controlador personalizado para la pantalla secundaria</h3>
+
+<p>Si en la parte derecha de la pantalla miras el <em>identity inspector</em> verás que el controlador de la pantalla secundaria es un tipo propio de Cocoa, el <code>UIViewController</code>. Vamos a cambiarlo por uno propio</p>
+
+<ol>
+<li>Crea una nueva clase de Cocoa Touch, (File&gt; New &gt; File…, plantilla “cocoa touch class”). En la segunda pantalla del asistente dale a la clase el nombre <code>SecundarioViewController</code> y haz que sea una subclase de <code>UIViewController</code>. Deja sin marcar la opción de crear el .XIB</li>
+<li>En el <em>storyboard</em>, selecciona el <em>controller</em> de la pantalla secundaria (es mejor que lo hagas pulsando en el primero de los iconos que aparecen en  la parte superior) 
+<img src="iconos_arriba_storyboard.png" alt=""></li>
+<li>Una vez seleccionado, ve al <em>identity inspector</em> en el área de <code>Utilities</code> y en el apartado de <code>Custom class</code> selecciona como clase la que has creado, <code>SecundarioViewController</code></li>
+</ol>
+
+<h3 id="toc_22">Añadirle un <em>outlet</em> al controlador secundario</h3>
+
+<p>Tienes que añadir un <em>outlet</em> al campo de texto para que su contenido se pueda cambiar desde el controlador secundario. Hazlo como habitualmente, con ctrl+arrastrar entre el campo y el <code>SecundarioViewController</code>, en el <code>assistant editor</code>.</p>
+
+<h3 id="toc_23">Hacer que el texto cambie según el botón pulsado</h3>
+
+<ul>
+<li>Lo primero es añadir físicamente los ficheros <code>*.txt</code> con los textos al proyecto para que se puedan cargar dinámicamente por código. Pulsa con el botón derecho sobre el proyecto y selecciona <code>Add files to Pioneras</code>. Selecciona los tres <code>.txt</code>, que se añadirán al proyecto</li>
+<li><p>Para que le podamos decir al controlador secundario qué fichero tiene que abrir, debes crear una propiedad en el <code>SecundarioViewController</code> llamada <code>nomFich</code> de tipo <code>String</code></p></li>
+<li><p>Para establecer una asociación sencilla entre cada segue y los datos a mostrar puedes usar el identificador del <em>segue</em>. Haz clic sobre él y en el <code>Attributes inspector</code> cambia su <code>identifier</code>, respectivamente por <code>lovelace</code>, <code>hopper</code> y <code>liskov</code></p></li>
+<li><p>ahora en la clase <code>ViewController</code>, que es el controlador de la pantalla principal, puedes implementar el <code>prepare(for:,sender:)</code></p></li>
+</ul>
+
+<div><pre><code class="language-swift">override func prepare(for segue: UIStoryboardSegue, sender: Any?) { 
+  //obtenemos el controller destino y forzamos la conversión al tipo adecuado
+  let controller = segue.destination as! SecundarioViewController
+  //fijamosla propiedad &quot;nomFich&quot; al identificador del segue
+  controller.nomFich = segue.identifier
+}</code></pre></div>
+
+<ul>
+<li>Finalmente, en el <code>viewDidLoad()</code> del <code>SecundarioViewController</code> puedes acceder a la propiedad <code>self.nomFich</code>, cargar el texto del fichero y mostrarlo en el campo de texto. <em>Tendrás que escribir el código tú mismo</em>. Haz uso de los métodos:
+
+<ul>
+<li><code>Bundle.main.path(forResource:, ofType:)</code>, que devuelve la trayectoria completa para acceder a un recurso incluido en el proyecto sabiendo su nombre y su tipo (en el tipo pon solo “txt”, sin el punto).</li>
+<li>Una vez obtenida la trayectoria, puedes leer el contenido del archivo como una cadena con el constructor de <code>String(contentsOfFile:encoding)</code>. Donde el primer parámetro es la trayectoria y el segundo el juego de caracteres (en nuestro caso el  valor enumerado <code>String.Encoding.utf8</code>). CUIDADO, este método está marcado con <code>throws</code>, así que tendrás que actuar en consecuencia. (usar do..catch o cualquier otra alternativa que veas razonable)</li>
+</ul></li>
+</ul>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+<script type="text/javascript">
+Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:{pattern:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,"boolean":/\b(true|false)\b/,"function":/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/};
+</script>
+
+<script type="text/javascript">
+Prism.languages.swift=Prism.languages.extend("clike",{string:{pattern:/("|')(\\(?:\((?:[^()]|\([^)]+\))+\)|\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,inside:{interpolation:{pattern:/\\\((?:[^()]|\([^)]+\))+\)/,inside:{delimiter:{pattern:/^\\\(|\)$/,alias:"variable"}}}}},keyword:/\b(as|associativity|break|case|catch|class|continue|convenience|default|defer|deinit|didSet|do|dynamic(?:Type)?|else|enum|extension|fallthrough|final|for|func|get|guard|if|import|in|infix|init|inout|internal|is|lazy|left|let|mutating|new|none|nonmutating|operator|optional|override|postfix|precedence|prefix|private|Protocol|public|repeat|required|rethrows|return|right|safe|self|Self|set|static|struct|subscript|super|switch|throws?|try|Type|typealias|unowned|unsafe|var|weak|where|while|willSet|__(?:COLUMN__|FILE__|FUNCTION__|LINE__))\b/,number:/\b([\d_]+(\.[\de_]+)?|0x[a-f0-9_]+(\.[a-f0-9p_]+)?|0b[01_]+|0o[0-7_]+)\b/i,constant:/\b(nil|[A-Z_]{2,}|k[A-Z][A-Za-z_]+)\b/,atrule:/@\b(IB(?:Outlet|Designable|Action|Inspectable)|class_protocol|exported|noreturn|NS(?:Copying|Managed)|objc|UIApplicationMain|auto_closure)\b/,builtin:/\b([A-Z]\S+|abs|advance|alignof(?:Value)?|assert|contains|count(?:Elements)?|debugPrint(?:ln)?|distance|drop(?:First|Last)|dump|enumerate|equal|filter|find|first|getVaList|indices|isEmpty|join|last|lexicographicalCompare|map|max(?:Element)?|min(?:Element)?|numericCast|overlaps|partition|print(?:ln)?|reduce|reflect|reverse|sizeof(?:Value)?|sort(?:ed)?|split|startsWith|stride(?:of(?:Value)?)?|suffix|swap|toDebugString|toString|transcode|underestimateCount|unsafeBitCast|with(?:ExtendedLifetime|Unsafe(?:MutablePointers?|Pointers?)|VaList))\b/}),Prism.languages.swift.string.inside.interpolation.inside.rest=Prism.util.clone(Prism.languages.swift);
+</script>
+
+
+</body>
+
+</html>
