@@ -4,7 +4,7 @@ Vamos a hacer una aplicación que vamos a llamar “Pioneras”, y que nos dará
 
 > Al crear el proyecto aseguráos de estar usando git (Sea desde Xcode o manualmente) ya que habrá que guardar y marcar el estado con un commit especial en un momento intermedio
 
-### Realizar la estructura básica de la aplicación
+### Realizar la estructura básica de la aplicación (0,75 puntos)
 
 1. En [este archivo comprimido](recursos.zip) tenemos las imágenes de las tres pioneras: Ada Lovelace, Grace Hopper y Barbara Liskov, que como siempre **arrastraremos al `Assets.xcassets`**. También tenemos los textos sobre ellas que se mostrarán en las pantallas secundarias.
 2. Crea tres botones en la pantalla principal, y para cada uno de ellos en lugar de texto vamos a usar como imagen de fondo la de cada mujer. Al final cada botón debería ocupar todo el ancho de la pantalla y más o menos un tercio del alto.
@@ -29,7 +29,7 @@ Vamos a hacer una aplicación que vamos a llamar “Pioneras”, y que nos dará
 
 **Aseguráos de guardar el estado actual del proyecto** con un commit cuyo comentario sea “version 1”.
 
-## Comunicar un *controller* con otro
+## Comunicar un *controller* con otro (1,25 puntos)
 
 Es un poco redundante tener tantas pantallas secundarias cuando en realidad lo único que cambia es el texto a mostrar. Valdría con una sola secundaria en la que cambiáramos dinámicamente dicho texto. Vamos a implementarlo así.
 
