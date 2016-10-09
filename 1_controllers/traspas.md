@@ -55,49 +55,49 @@ Apple usa el confuso término "View Controller" para referirse al controlador de
 
 Un *controller* no es más que una clase que hereda de `UIViewController`. Podemos escribirla nosotros o ser propia de Cocoa
 
-```objectivec
-//Archivo ViewController.h
-@interface ViewController : UIViewController
+```swift
+class MiViewController : UIViewController {
+   //Definición de la clase
+}
 ```
 
 ---
 
 ## Métodos del ciclo de vida de un *controller*
 
-```objectivec
-- (void)loadView
-- (void)viewDidLoad
-- (void)viewDidUnload
-- (void)viewDidAppear
-- (void)viewWillAppear
-- (void)didReceiveMemoryWarning
+```swift
+loadView()
+viewDidLoad()
+viewDidUnload()
+viewDidAppear()
+viewWillAppear()
+didReceiveMemoryWarning()
 ```
 
 ---
 
-## `viewDidLoad`
+## `viewDidLoad()`
 
 - Se llama una única vez tras cargar el controlador en memoria
 - Se suele aprovechar para inicializar propiedades, rellenar la vista con contenido si son datos dinámicos, etc.
 
 ---
 
-##`viewDidAppear`
+##`viewDidAppear()`
 
 - Se llama cada vez que se muestra la vista asociada al controlador
 - Típicamente usada para iniciar animaciones
 
 ---
 
-##`loadView`
+##`loadView()`
 
 - Solo se usa si queremos crear los componentes de la interfaz por código
 
-```objectivec
-- (void)loadView {
-    UIView *vista = [[UIView alloc]
-                     initWithFrame: [[UIScreen mainScreen] applicationFrame]];
-    vista.backgroundColor = [UIColor greenColor];
+```swift
+override func loadView {
+    vista = UIView(frame:UIScreen.main.applicationFrame
+    vista.backgroundColor = UIColor.greenColor
     self.view = vista;
  }
 ```
@@ -160,8 +160,8 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 - Cuando se va a cambiar de un controlador a otro iOS llama a `prepareForSegue:sender`. 
 
 ```objectivec
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"Vamos a cambiar de controller!!!")
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("cambiamos de pantalla")
 }
 ```
 
@@ -176,13 +176,10 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 3. Cuando llegamos al destino, en la propiedad tenemos la información deseada
 
 
-```objc
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    //Supongamos que el controller destino es de la clase "ViewController2"
-    ViewController2 *destino = [segue destinationViewController];
-    //Supongamos que la clase "ViewController2"
-    //tiene una @property NSString *texto
-    destino.texto = @"Hola, bienvenidos a esta pantalla";
+```swift
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! SecundarioViewController
+        controller.mensaje = segue.identifier
 }
 ```
 
@@ -192,9 +189,9 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 
 **Paso 1**. Implementar en el *controller* al que se vuelve un método que devuelva un `IBAction` y tenga como único parámetro un `UIStoryboardSegue *`. No es necesario que el método haga nada en especial. Simplemente sabemos que se ejecutará cuando se vuelva atrás.
 
-```objectivec
-- (IBAction)miUnwind:(UIStoryboardSegue *)sender {
-    NSLog(@"Vuelta atrás!!");
+```swift
+@IBAction func retornoDeSecundaria(segue: UIStoryboardSegue) {
+    print("volvemos atrás")    
 }
 ```
 
@@ -235,23 +232,20 @@ Transiciones entre controladores. Se pueden crear con `Ctrl+arrastrar` entre el 
 
 Si el NIB tiene un *controller* asociado, se cargará automáticamente al instanciar el *controller*.
 
-```objectivec
-MiViewController *mvc = [[MiViewController alloc] init];
-//pasamos a este controller
-self.window.rootViewController = mvc;
+```swift
+//creamos el controller
+let vc = ViewControllerNIB()
+//Seleccionamos la transición. Por defecto es "coverVertical"
+vc.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal;
+//presentamos el controller. Usamos una "trailing closure"
+self.present(vc, animated: true) {
+   print("presentado!")
+}
 ```
 
 ---
 
-##Cargar un NIB (opción 2)
 
-```objectivec
-EjemploViewController *evc =   [[EjemploViewController alloc] 
-                                 initWithNibName:@"ejemplo" bundle:nil];
-self.window.rootViewController = evc;
-```
-
----
 
 ##El File's Owner
 
