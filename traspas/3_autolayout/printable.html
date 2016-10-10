@@ -340,7 +340,7 @@ html,body,#wrapper{font-size:10pt!important;}
 
 <h2 id="algunaspistasii">Algunas pistas (II)</h2>
 
-<p>Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un <em>tamaño intrínseco</em>. Es decir, tienen un tamaño predeterminado (normalmente el del contenido) y solo hace falta una restricción más. </p>
+<p>Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un <em>tamaño intrínseco</em>. Es decir, tienen un tamaño predeterminado (normalmente el del contenido) y para cada dimensión solo hace falta una restricción más. </p>
 <!-- .element class="stretch" -->
 
 <figure>
@@ -478,17 +478,6 @@ let centrarX = NSLayoutConstraint(item: self.boton,
                      constant: 0.0)
 //la activamos                     
 centrarX.isActive = true</code></pre>
-
-<hr />
-
-<h2 id="ejemploconelapi:añadirlarestricciónalavista">Ejemplo con el API: añadir la restricción a la vista</h2>
-
-<ul>
-<li>Para que tenga efecto hay que añadirla a la vista con <code>addConstraint</code></li>
-</ul>
-<pre><code class="objectivec">[self.miBoton.superview addConstraint:constraint];</code></pre>
-
-<p>Si son vistas “madre/hija” la añadiremos a la “madre”, y en otro caso <em>al ancestro común más cercano de ambas vistas</em>. Por ejemplo si fuera una relación entre dos botones dentro del mismo contenedor la añadiríamos al contenedor.</p>
 
 <hr />
 

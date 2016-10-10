@@ -121,7 +121,7 @@ En general, para cada dimensión hacen falta dos restricciones
 
 ##Algunas pistas (II)
 
-Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un *tamaño intrínseco*. Es decir, tienen un tamaño predeterminado (normalmente el del contenido) y solo hace falta una restricción más. 
+Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un *tamaño intrínseco*. Es decir, tienen un tamaño predeterminado (normalmente el del contenido) y para cada dimensión solo hace falta una restricción más. 
 
 <!-- .element class="stretch" -->
 ![](img/intrinsic_size.png)
@@ -252,18 +252,6 @@ let centrarX = NSLayoutConstraint(item: self.boton,
 centrarX.isActive = true
 ```
 
----
-
-##Ejemplo con el API: añadir la restricción a la vista
-
-
-- Para que tenga efecto hay que añadirla a la vista con `addConstraint`
-
-```objectivec
-[self.miBoton.superview addConstraint:constraint];
-```
-
-Si son vistas “madre/hija” la añadiremos a la “madre”, y en otro caso *al ancestro común más cercano de ambas vistas*. Por ejemplo si fuera una relación entre dos botones dentro del mismo contenedor la añadiríamos al contenedor.
 
 ---
 

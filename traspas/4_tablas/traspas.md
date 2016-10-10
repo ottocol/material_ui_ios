@@ -274,7 +274,8 @@ else {
 
 ```swift
 func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-    if indexPath.row==(self.datasource.datos.count-1) {
+    //Ponemos un botón "insert" en la última fila
+    if indexPath.row==tableView.numberOfRows(inSection:0)-1 {
         return UITableViewCellEditingStyle.insert
     }
     else {
