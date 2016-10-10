@@ -24,7 +24,7 @@ El mecanismo estándar que ofrece iOS para diseñar interfaces que se adapten a 
 2. Manipulación de restricciones con Xcode
 3. *Stack Views*
 4. Más sobre las restricciones
-5. Manipulación de restricciones en Objective-C
+5. Manipulación de restricciones en Swift
 
 
 ---
@@ -121,7 +121,7 @@ En general, para cada dimensión hacen falta dos restricciones
 
 ##Algunas pistas (II)
 
-Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un *tamaño intrínseco*. Es decir, tienen un tamaño predeterminado y solo hace falta una restricción más
+Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tienen un *tamaño intrínseco*. Es decir, tienen un tamaño predeterminado (normalmente el del contenido) y solo hace falta una restricción más. 
 
 <!-- .element class="stretch" -->
 ![](img/intrinsic_size.png)
@@ -147,7 +147,7 @@ Algunos elementos, como las etiquetas, botones, imágenes o campos de texto, tie
 
 ## *Stack View*
 
-Novedad en iOS9 para crear fácilmente *layouts* de elementos en disposición vertical u horizontal. Solo tenemos que especificar las restricciones del *stack view*, no de cada componente por separado
+Desde iOS9 para crear fácilmente *layouts* de elementos en disposición vertical u horizontal. Solo tenemos que especificar las restricciones del *stack view*, no de cada componente por separado
 
 <!-- .element class="stretch" -->
 ![](img/stack_view.png)
@@ -217,7 +217,7 @@ Es decir, *autolayout* **está resolviendo un sistema de ecuaciones lineales** s
 
 ---
 
-## A veces la interfaz de Xcode no es bastante
+## A veces la interfaz de Xcode no es suficiente
 
 - A veces los elementos de la interfaz se crean dinámicamente en tiempo de ejecución
 - Otras veces queremos que cambien dinámicamente las restricciones para cambiar dinámicamente el *layout* o hacer animaciones
@@ -237,15 +237,19 @@ Es decir, *autolayout* **está resolviendo un sistema de ecuaciones lineales** s
 superview.centerX = 1*button.centerX+0
 ```
 
-```objectivec
- NSLayoutConstraint *constraint = [NSLayoutConstraint 
-   constraintWithItem:button
-   attribute:NSLayoutAttributeCenterX
-   relatedBy:NSLayoutRelationEqual
-   toItem:superview
-   attribute:NSLayoutAttributeCenterX
-   multiplier:1.0
-   constant:0.0]
+```swift
+//Esto sirve para que el sistema no añada restricciones propias
+self.boton.translatesAutoresizingMaskIntoConstraints = false;
+//creamos la restricción
+let centrarX = NSLayoutConstraint(item: self.boton,
+                     attribute: .centerY,
+                     relatedBy: .equal,
+                     toItem: self.view,
+                     attribute: .centerY,
+                     multiplier: 1.0,
+                     constant: 0.0)
+//la activamos                     
+centrarX.isActive = true
 ```
 
 ---
@@ -290,21 +294,17 @@ Ejemplo: separación estándar (8 pixels) entre el botón 1 y el 2
 
 ##Ejemplo con código
 
-```objectivec
-NSLayoutConstraint *constraint = 
- [NSLayoutConstraint
-   constraintsWithVisualFormat:
-   @"[cancelButton]-[acceptButton]"
-   options: NSLayoutFormatDirectionLeadingToTrailing | 
-              NSLayoutFormatAlignAllCenterY 
-   metrics:nil   //para ctes. simbólicas en la restricción
-   views:viewsDictionary];
+```swift
+let constraint = NSLayoutConstraint.constraints(
+                   withVisualFormat:"[boton1]-[boton2]",
+                   options: .alignAllCenterY, 
+                   metrics: nil,   //para ctes. simbólicas en la restricción
+                   views:viewsDict)
 ```
 
-```objectivec
-UIButton *cancelButton = ...;
-UIButton *acceptButton = ...;
-NSDictionary *views = NSDictionaryOfVariableBindings(cancelButton, 
-                          acceptButton);
+```swift
+let b1 = UIButton()  
+let b2 = UIButton()
+let viewsDict = ["boton1":b1, "boton2":b2]
 ```
 
