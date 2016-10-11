@@ -212,8 +212,13 @@ Es decir, *autolayout* **está resolviendo un sistema de ecuaciones lineales** s
 
 ---
 
+<blockquote class="twitter-tweet" data-lang="es"><p lang="en" dir="ltr"><a href="https://twitter.com/0xced">@0xced</a> I used to have this in front of my desk <a href="http://t.co/TVrOHRF8dj">pic.twitter.com/TVrOHRF8dj</a></p>&mdash; You can call me Joe (@mokagio) <a href="https://twitter.com/mokagio/status/632464618305097728">15 de agosto de 2015</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-#5. Manipulación de restricciones con Objective-C
+
+---
+
+
+#5. Manipulación de restricciones por código
 
 ---
 
@@ -233,19 +238,23 @@ Es decir, *autolayout* **está resolviendo un sistema de ecuaciones lineales** s
 
 ##Ejemplo con el API: crear la restricción
 
+Estamos en un *controller* y tenemos la vista asociada, `self.view` y un *outlet* `self.boton` que representa un botón. Queremos que
+
 ```java
-superview.centerX = 1*button.centerX+0
+self.view.centerX = 1*self.boton.centerX+0
 ```
+
+En código Swift
 
 ```swift
 //Esto sirve para que el sistema no añada restricciones propias
 self.boton.translatesAutoresizingMaskIntoConstraints = false;
 //creamos la restricción
-let centrarX = NSLayoutConstraint(item: self.boton,
-                     attribute: .centerY,
+let centrarX = NSLayoutConstraint(item: self.view,
+                     attribute: .centerX,
                      relatedBy: .equal,
-                     toItem: self.view,
-                     attribute: .centerY,
+                     toItem: self.boton,
+                     attribute: .centerX,
                      multiplier: 1.0,
                      constant: 0.0)
 //la activamos                     
