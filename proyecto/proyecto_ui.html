@@ -199,7 +199,7 @@ html,body,#wrapper{font-size:10pt!important;}
 
 <style>#wrapper { max-width:900px; margin:0 auto }</style>
 </head>
-<body class="normal firstload">
+<body class="normal">
   <div id="wrapper">
       <h1 id="proyectodelaasignaturadeinterfacesdeusuariopartedeiosbásico">Proyecto de la asignatura de interfaces de usuario, parte de iOS básico</h1>
 
@@ -213,8 +213,7 @@ html,body,#wrapper{font-size:10pt!important;}
 
 <h3 id="accesoalaapi">Acceso a la API</h3>
 
-<p>La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente con los APIs de iOS sería un poco engorroso, por lo que vamos a usar un par de librerías que nos faciliten no solo hacer la petición en sí sino sobre todo <em>parsear</em> el JSON, que en Swift es algo tedioso. Usaremos una librería llamada Marvelous,
-  que encapsula las llamadas al API en una serie de clases de modo que no tenemos que hacer peticiones HTTP "manualmente".</p>
+<p>La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente con los APIs de iOS sería un poco engorroso, por lo que vamos a usar un par de librerías que nos faciliten no solo hacer la petición en sí sino sobre todo <em>parsear</em> el JSON, que en Swift es algo tedioso. Usaremos una librería adicional llamada Marvelous, que encapsula las llamadas al API en una serie de clases de modo que no tenemos que hacer peticiones HTTP directamente. </p>
 
 <h4 id="instalacióndelaslibreríasauxiliares">Instalación de las librerías auxiliares</h4>
 
@@ -223,8 +222,8 @@ html,body,#wrapper{font-size:10pt!important;}
 <p>Cocoapods es a la vez un repositorio de librerías y un gestor de dependencias para instalar automáticamente estas librerías en nuestros proyectos. Hay muchas librerías de terceros disponibles con este sistema, puedes buscarlas desde la página de CocoaPods.</p>
 
 <p>Para instalar <code>cocoapods</code>, desde la terminal hacer</p>
-<pre><code class="bash">#Con --pre decimos que queremos instalar la última versión, aunque sea RC
-sudo gem install cocoapods  --pre</code></pre>
+<pre><code>#Con &#8211;pre decimos que queremos instalar la última versión, aunque sea RC
+sudo gem install cocoapods &#8211;pre</code></pre>
 
 <blockquote>
 <p>Esto instala la herramienta desde un repositorio de Internet, así que necesitarás conectividad&#8230;y paciencia, según vaya la red.</p>
@@ -236,11 +235,12 @@ sudo gem install cocoapods  --pre</code></pre>
 <li>Crear un proyecto Xcode para la aplicación. Llámalo por ejemplo <code>Marvel</code></li>
 <li>Con un editor de textos cualquiera, crear un fichero llamado <code>Podfile</code> en el directorio del proyecto (el que contiene el fichero <code>.xcodeproj</code>). Este archivo debe contener la configuración y las dependencias (o <em>pods</em>) del proyecto</li>
 </ol>
-<pre><code class="bash">platform :ios, &apos;10.0&apos;
+<pre><code>platform :ios, &apos;10.0&apos;
 use_frameworks!
-#SUSTITUYE &apos;Marvel&apos; por el nombre de tu proyecto, si no se llama así!!!
+
+<h1 id="sustituyeaposmarvelaposporelnombredetuproyectosinosellamaasí">SUSTITUYE &apos;Marvel&apos; por el nombre de tu proyecto, si no se llama así!!!</h1>
 target &apos;Marvel&apos; do
-   pod &apos;Marvelous&apos;
+ pod &apos;Marvelous&apos;
 end</code></pre>
 
 <ol>
@@ -260,23 +260,23 @@ end</code></pre>
 </blockquote>
 
 <p>Para probar de manera sencilla la librería <code>Marvelous</code> puedes poner este <code>import</code> en el <code>ViewController</code></p>
-<pre><code class="swift">import Marvelous</code></pre>
+<pre><code>import Marvelous</code></pre>
 
 <p>Y ahora colocar el siguiente código en el <code>viewDidLoad()</code> y comprobar que se muestran en la consola todos los personajes cuyo nombre comienza por &#8220;spider&#8221;.</p>
-<pre><code class="swift">let marvelAPI = RCMarvelAPI()
+<pre><code>let marvelAPI = RCMarvelAPI()
 //CAMBIA ESTO PARA PONER TUS CLAVES!!!!!
 marvelAPI.publicKey = &quot;a6927e7e15930110aade56ef90244f6d&quot;
 marvelAPI.privateKey = &quot;487b621fc3c0d6f128b468ba86c99c508f24d357&quot;
 let filtro = RCCharacterFilter()
 filtro.nameStartsWith = &quot;spider&quot;
 marvelAPI.characters(by: filtro) {
-    resultados, info, error in
-    if let personajes = resultados as! [RCCharacterObject]? {
-        for personaje in personajes {
-            print(personaje.name)
-        }
-        print(&quot;Hay \(personajes.count) personajes&quot;)
-    }
+ resultados, info, error in
+ if let personajes = resultados as! [RCCharacterObject]? {
+ for personaje in personajes {
+ print(personaje.name)
+ }
+ print(&quot;Hay (personajes.count) personajes&quot;)
+ }
 }</code></pre>
 
 <h2 id="estructurageneraldelainterfaz">Estructura general de la interfaz</h2>
@@ -352,9 +352,9 @@ marvelAPI.characters(by: filtro) {
 <li>Pon en la cabecera <code>ListaController</code> que esta clase implementa el protocolo <code>UISearchBarDelegate</code></li>
 <li>En el <code>ListaController</code> implementa el método <code>searchBarSearchButtonClicked(_)</code>, que se llamará cuando se escriba algo en la barra y se pulse el botón del teclado &#8220;buscar&#8221;. Para probar que funciona de momento basta que imprimas en la consola el texto escrito en la barra y quites el teclado <em>on screen</em>.</li>
 </ul>
-<pre><code class="swift">func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    print(&quot;Buscado: \(searchBar.text!)&quot;)
-    searchBar.resignFirstResponder()
+<pre><code>func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+ print(&quot;Buscado: (searchBar.text!)&quot;)
+ searchBar.resignFirstResponder()
 }</code></pre>
 
 <p>Ejecuta la <em>app</em> y comprueba que efectivamente funciona.</p>
@@ -372,10 +372,10 @@ marvelAPI.characters(by: filtro) {
 </ul>
 
 <p>Cada vez que se haga una búsqueda y se añadan datos al array tendrás que decirle a iOS que vuelva a redibujar la tabla llamando a su método <code>reloadData</code>. Cuidado, porque al ser una actualización de la interfaz debes asegurarte de que esto lo estás haciendo desde el <em>thread</em> principal, algo como:</p>
-<pre><code class="swift">//sustituye self.vistaTabla por el outlet que hayas definido
+<pre><code>//sustituye self.vistaTabla por el outlet que hayas definido
 //para acceder a la tabla desde el controlador
 OperationQueue.main.addOperation() {
-        self.vistaTabla.reloadData();
+ self.vistaTabla.reloadData();
 }</code></pre>
 
 <blockquote>
@@ -428,24 +428,24 @@ OperationQueue.main.addOperation() {
 <li>Usa los componentes que consideres necesarios para mostrar los datos del objeto (no es necesario que sean todos, solo los que quieras, para probar que funciona). Tendrás que crear un <em>outlet</em> por cada campo, y rellenar los campos en el <code>viewDidLoad</code> del <em>controller</em>. Puedes consultar la referencia de clases en la <a href="http://cocoadocs.org/docsets/Marvelous/0.7.3/">documentación <em>online</em> de Marvelous</a> para saber qué propiedades tiene cada objeto. La referencia está en Objective-C pero no es difícil deducir qué es cada propiedad</li>
 <li>Entre otras cosas, en esta pantalla deberías mostrar la imagen del personaje, comic, creador o lo que sea que hayas elegido, a un tamaño relativamente pequeño. La carga de la imagen deberías hacerla en un hilo secundario, para no paralizar la interfaz de usuario si la imagen tarda en cargarse:</li>
 </ul>
-<pre><code class="swift">let colaBackground = OperationQueue()
+<pre><code>let colaBackground = OperationQueue()
 colaBackground.addOperation {
-    if let thumb = personajes[0].thumbnail {
-      let url = &quot;\(thumb.basePath!)/portrait_uncanny.\(thumb.extension!)&quot;
-      let urlHttps = url.replacingOccurrences(of: &quot;http&quot;, with: &quot;https&quot;)
-        if let urlFinal = URL(string:urlHttps) {
-            do {
-               let datos = try Data(contentsOf:urlFinal)
-                if let img = UIImage(data: datos) {
-                    OperationQueue.main.addOperation {
-                        self.miImagen.image = img
-                    }
-                }
-            }
-            catch {             
-            }
-        }
-    }
+ if let thumb = personajes[0].thumbnail {
+ let url = &quot;(thumb.basePath!)/portrait_uncanny.(thumb.extension!)&quot;
+ let urlHttps = url.replacingOccurrences(of: &quot;http&quot;, with: &quot;https&quot;)
+ if let urlFinal = URL(string:urlHttps) {
+ do {
+ let datos = try Data(contentsOf:urlFinal)
+ if let img = UIImage(data: datos) {
+ OperationQueue.main.addOperation {
+ self.miImagen.image = img
+ }
+ }
+ }
+ catch {
+ }
+ }
+ }
 }</code></pre>
 
 <p>Puedes consultar <a href="http://developer.marvel.com/documentation/images">esta página</a> para ver el formato de las URL de las imágenes. Básicamente se construyen con una trayectoria base seguidas de un &#8220;modificador&#8221; de aspecto y tamaño (<code>portrait_small</code>, <code>landscape_medium</code>, &#8230;) y la extensión del archivo.</p>
