@@ -10,11 +10,7 @@ Lo primero que necesitas es [registrarte](https://secure.marvel.com/user/registe
 
 ###Acceso a la API 
 
-La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente con los APIs de iOS sería un poco engorroso, por lo que vamos a usar un par de librerías que nos faciliten no solo hacer la petición en sí sino sobre todo *parsear* el JSON, que en Swift es algo tedioso. Usaremos un par de librerías adicionales:
-
-- Marvelous: que encapsula las llamadas al API en una serie de clases de modo que no tenemos que hacer 
-
-
+La API de Marvel es REST, por lo que acepta peticiones HTTP. No obstante hacerlas directamente con los APIs de iOS sería un poco engorroso, por lo que vamos a usar un par de librerías que nos faciliten no solo hacer la petición en sí sino sobre todo *parsear* el JSON, que en Swift es algo tedioso. Usaremos una librería adicional llamada Marvelous, que encapsula las llamadas al API en una serie de clases de modo que no tenemos que hacer peticiones HTTP directamente. 
 
 ####Instalación de las librerías auxiliares
 
