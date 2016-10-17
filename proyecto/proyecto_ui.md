@@ -35,7 +35,7 @@ Si todo va bien se instalará un comando llamado `pod`. Ejecútalo desde la term
 ```bash
 platform :ios, '10.0'
 use_frameworks!
-#SUSTITUYE 'Marvel' por el nombre de tu proyecto, si no se llama así!!!
+//SUSTITUYE 'Marvel' por el nombre de tu proyecto, si no se llama así!!!
 target 'Marvel' do
    pod 'Marvelous'
 end
