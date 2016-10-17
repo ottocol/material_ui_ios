@@ -269,8 +269,8 @@ end</code></pre>
 <p>Y ahora colocar el siguiente código en el <code>viewDidLoad()</code> y comprobar que se muestran en la consola todos los personajes cuyo nombre comienza por &#8220;spider&#8221;.</p>
 <pre><code class="swift">let marvelAPI = RCMarvelAPI()
 //CAMBIA ESTO PARA PONER TUS CLAVES!!!!!
-marvelAPI.publicKey = &quot;tu-clave-publica-del-API&quot;
-marvelAPI.privateKey = &quot;tu-clave-privada-del-API&quot;
+marvelAPI.publicKey = &quot;a6927e7e15930110aade56ef90244f6d&quot;
+marvelAPI.privateKey = &quot;487b621fc3c0d6f128b468ba86c99c508f24d357&quot;
 let filtro = RCCharacterFilter()
 filtro.nameStartsWith = &quot;spider&quot;
 marvelAPI.characters(by: filtro) {

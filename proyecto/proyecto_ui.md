@@ -67,8 +67,8 @@ Y ahora colocar el siguiente código en el `viewDidLoad()` y comprobar que se mu
 ```swift
 let marvelAPI = RCMarvelAPI()
 //CAMBIA ESTO PARA PONER TUS CLAVES!!!!!
-marvelAPI.publicKey = "tu-clave-publica-del-API"
-marvelAPI.privateKey = "tu-clave-privada-del-API"
+marvelAPI.publicKey = "a6927e7e15930110aade56ef90244f6d"
+marvelAPI.privateKey = "487b621fc3c0d6f128b468ba86c99c508f24d357"
 let filtro = RCCharacterFilter()
 filtro.nameStartsWith = "spider"
 marvelAPI.characters(by: filtro) {
