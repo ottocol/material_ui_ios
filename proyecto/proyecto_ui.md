@@ -41,7 +41,6 @@ platform :ios, '10.0'
 use_frameworks!
 #SUSTITUYE 'Marvel' por el nombre de tu proyecto, si no se llama así!!!
 target 'Marvel' do
-   pod 'Alamofire','~> 4.0'
    pod 'Marvelous'
 end
 ```
