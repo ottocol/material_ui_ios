@@ -50,12 +50,9 @@ end
 6. **A partir de ahora para trabajar en el proyecto siempre abriremos el fichero Marvel.xcworkspace**, que es un *workspace* de Xcode (un conjunto de proyectos), no el proyecto Marvel directamente (**NO ABRAS DIRECTAMENTE el `Marvel.xcodeproj`**).
 7. Veremos que en Xcode se muestra nuestro proyecto y además un proyecto adicional llamado `Pods`, que contiene las dependencias. Este último no lo tocaremos, pero es necesario que esté ahí para que funcione el nuestro.
 
-![](img/proyecto_y_pods.png)
-
 > ANTES de empezar a escribir código asegúrate de hacer en Xcode un `Product > Clean`, y `Product > Build` para asegurarse de que las dependencias están compiladas y accesibles en nuestro código.
 
 ###Ejemplo de uso de `Marvelous`
-
 
 > Para poder hacer llamadas al API de Marvel necesitas un par de claves. Las puedes ver, una vez dado de alta y autentificado en Marvel, en `https://developer.marvel.com/account`
 
